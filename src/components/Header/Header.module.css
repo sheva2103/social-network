@@ -1,0 +1,20 @@
+
+.header {
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    position: fixed;
+    background-color: #383d47;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+    .item {
+        margin: 10px;
+        padding: 10px;
+        border: solid 1px black;
+    }

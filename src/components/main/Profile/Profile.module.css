@@ -1,0 +1,18 @@
+
+.container {
+    display: flex;
+    padding: 4px;
+}
+    .item {
+        background-color: #282c34;
+        margin: 6px;
+    }
+    .photo {
+        flex: 0 0 10%;
+    }
+    .text {
+        flex: 0 0 70%;
+    }
+    .button {
+        flex: 0 0 20%;
+    }
