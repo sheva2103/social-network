@@ -10,6 +10,10 @@ let theme = createTheme({
             button: {
                 main: 'rgb(3, 149, 216)',
                 contrastText: '#fff'
+            },
+            currentUser: {
+                main: '#fff',
+                contrastText: '#fff'
             }
     },
 })

@@ -3,16 +3,16 @@
     display: flex;
     padding: 4px;
 }
-    .item {
+    /* .item {
         background-color: #282c34;
         margin: 6px;
     }
     .photo {
-        flex: 0 0 10%;
+        flex: 0 1 10%;
     }
     .text {
-        flex: 0 0 70%;
+        flex: 0 1 70%;
     }
     .button {
-        flex: 0 0 20%;
-    }
+        flex: 0 1 20%;
+    } */
