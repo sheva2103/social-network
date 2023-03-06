@@ -19,7 +19,7 @@ const AddNewPost = () => {
                     <TextField fullWidth sx={{padding: '8px',
                                             '& input': {borderBottom: 'solid 1px orange', color: 'orange'},
                                             '& label': {color: 'orange'}}}
-                        id="filled-basic" label="Filled" variant="filled" color='neutral'/>
+                        id="filled-basic" label="Новый пост" variant="filled" color='neutral'/>
                 </Grid>
                 <Grid container item lg={2} justifyContent={'center'} alignItems={'center'}>
                     <Button variant="contained" color='button' sx={{padding: 'auto'}}>Отправить</Button>
