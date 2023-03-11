@@ -9,7 +9,7 @@ const AddNewPost = () => {
     return ( 
     
         <Box sx={{ flexGrow: 1, padding: '8px' }}>
-            <Grid container spacing={2}>
+            <Grid container spacing={2} zIndex={5}>
                 <Grid container item lg={1} justifyContent={'center'} alignItems={'center'}>
                     <Stack spacing={2} sx={{padding: '8px'}}>
                         <Avatar alt='logo' src={i}/>

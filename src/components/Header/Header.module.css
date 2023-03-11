@@ -4,8 +4,9 @@
     top: 0;
     left: 0;
     right: 0;
-    position: fixed;
+    position: static;
     background-color: #383d47;
+    z-index: 5;
 }
 
 .container {

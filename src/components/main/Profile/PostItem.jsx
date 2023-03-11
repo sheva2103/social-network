@@ -8,7 +8,7 @@ import i from '../../../logo.svg'
 
 const PostItem = () => {
     return ( 
-        <Box sx={{padding: '8px', borderRadius: '4px', margin: '8px 0'}}>
+        <Box sx={{padding: '8px', borderRadius: '4px', margin: '8px 8px', backgroundColor: '#383d47'}}>
             <Grid container spacing={1} sx={{alignItems: 'center'}}>
                 <Grid item>
                     <IconButton onClick={() => console.log(123)} sx={{ p: 0 }}>

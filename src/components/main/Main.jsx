@@ -7,12 +7,13 @@ import Sidebar from './Sidebar';
 import Messages from './Messages/Messages';
 import Photos from './Photos/Photos';
 
-const Main = () => {
+const Main = ({menuActive, setMenuActive}) => {
 
+    console.log(menuActive)
     return(
-        <main className={style.main}>
-            <div className={style.main_navbar}>
-                <Sidebar />
+        <main className={style.main} onClick={() => setMenuActive(false)}> 
+            <div className={!menuActive ? style.main_navbar : `${style.main_navbar} ${style.main_navbar_active}`} onClick={(e) => e.stopPropagation()}>
+                <Sidebar setMenuActive={setMenuActive}/>
             </div>
             <div className={style.main_container}>
                 <Routes>
