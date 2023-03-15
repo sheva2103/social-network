@@ -7,9 +7,14 @@ import IconButton from '@mui/material/IconButton';
 import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import { Grid, Typography } from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import i from '../../logo.svg'
+import { registrationNewUser, signIn } from '../../redux/authReducer';
+import { connect } from 'react-redux';
+import BasicModal from './../modal/Modal';
+
+export const MODAL_AUTH = 'MODAL_AUTH'
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -48,12 +53,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 
-export default function Header({setMenuActive}) {
-  
+function Header({setMenuActive, isAuth, setModalOpen, registrationNewUser, modalOpen, signIn, isFetching, currentUser, ...props}) {
+//console.log(props)
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" color='header'>
-        <Grid container>
+        <Grid container justifyContent={'center'}>
           <Grid item xs={true}>
                   <Toolbar>
                   <IconButton
@@ -66,7 +71,7 @@ export default function Header({setMenuActive}) {
                   >
                 <MenuIcon />
               </IconButton>
-              <Typography variant="h5" sx={{mr: '8px'}}>Название</Typography>
+              <Typography variant={window.innerWidth < 400 ? 'body2' : 'h6'} sx={{mr: '8px'}}>MINISOCIALNETWORK</Typography>
                 <Search onChange={(e) => console.log(e.target.value)} >
                   
                   <StyledInputBase
@@ -81,12 +86,38 @@ export default function Header({setMenuActive}) {
           </Grid>
           <Grid item xs={'auto'} alignSelf={'center'} sx={{mr: '10px'}}>
           
-          <Avatar alt="user img" src={i} />
+          {isAuth ?
+            <Grid container>
+              <Typography variant="h6" gutterBottom sx={{margin: '0 8px 0 8px'}}>{currentUser}</Typography>
+              <Avatar alt="user img" src={i} /> 
+            </Grid>
+            : 
+            <Button variant="contained" color="exitButton" onClick={ ()=> setModalOpen(true) }>Войти</Button>}
         
           </Grid>
         </Grid>
       </AppBar>
-      
+      {modalOpen && <BasicModal typeModal={MODAL_AUTH} modalOpen={modalOpen} setModalOpen={setModalOpen} registrationNewUser={registrationNewUser} signIn={signIn} isFetching={isFetching}/>}
     </Box>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    isAuth: state.auth.isAuth,
+    isFetching: state.auth.isFetching,
+    currentUser: state.auth.currentUser
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    registrationNewUser: (email, password) => {
+        dispatch(registrationNewUser(email, password))
+    },
+    signIn: (email, password, setModalOpen) => {
+      dispatch(signIn(email, password, setModalOpen))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header)

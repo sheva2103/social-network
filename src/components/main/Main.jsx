@@ -9,7 +9,6 @@ import Photos from './Photos/Photos';
 
 const Main = ({menuActive, setMenuActive}) => {
 
-    console.log(menuActive)
     return(
         <main className={style.main} onClick={() => setMenuActive(false)}> 
             <div className={!menuActive ? style.main_navbar : `${style.main_navbar} ${style.main_navbar_active}`} onClick={(e) => e.stopPropagation()}>

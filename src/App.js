@@ -11,13 +11,14 @@ import BasicModal from './components/modal/Modal';
 const App = () => {
   
   let [menuActive, setMenuActive] = useState(false)
+  let [modalOpen, setModalOpen] = useState(false)
 
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme}>
-        <Header menuActive={menuActive} setMenuActive={setMenuActive}/>
+        <Header menuActive={menuActive} setMenuActive={setMenuActive} setModalOpen={setModalOpen} modalOpen={modalOpen}/>
         <Main menuActive={menuActive} setMenuActive={setMenuActive}/>
-        <BasicModal />
+        {/* <BasicModal modalOpen={modalOpen} setModalOpen={setModalOpen} /> */}
       </ThemeProvider>
     </BrowserRouter>
   )

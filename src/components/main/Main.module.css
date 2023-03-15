@@ -79,7 +79,7 @@ nav {
         padding-left: 10px;
     }
     .main {
-        width: 90%;
+        width: 100%;
     }
     .main_container {
         flex: 0 0 90%;

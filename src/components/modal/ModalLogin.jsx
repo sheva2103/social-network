@@ -1,162 +1,133 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
+import React, { useEffect, useState } from 'react';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { TextField, Button, Grid } from '@mui/material';
+import { Button, Grid } from '@mui/material';
 import { Form, Field } from 'react-final-form'
-import { Input } from './../common/formControl/FormControl';
+import { validate } from '../common/formControl/validators';
+import { TextField } from '@mui/material';
+import { connect } from 'react-redux';
+import { Navigate } from 'react-router-dom';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
-}
-/////////////////////////////////////////////////form
-    const LoginForm = ({typeButton}) => {
-      
-        return (
-            // <form name='login'>
-            //     <Grid container direction={'column'} spacing={2}>
-            //         <Grid item xs={12}>
-            //             <TextField fullWidth autoFocus id="outlined-basic" label="Логин" variant="outlined" sx={{'& input': { color: 'orange'}}}/>
-            //       </Grid>
-            //       <Grid item xs={12}>
-            //         <TextField fullWidth id="outlined-basic" label="Пароль" variant="outlined" sx={{'& input': { color: 'orange'}}}/>
-            //       </Grid>
-            //       <Grid item xs={12}>
-            //         <Button variant="contained">{typeButton}</Button>
-            //       </Grid>
-            //     </Grid>
-            // </form>
-
-
-
-
-  //           <Form
-  //   onSubmit={(e) => console.log(e)}
-    
-  //   render={({ handleSubmit }) => (
-  //     <form onSubmit={handleSubmit}>
-  //       <h2>Simple Default Input</h2>
-  //       <div>
-  //         <label>11111</label>
-  //         <Field name="firstName" component={() => <Input error label='Логин'/>} />
-  //       </div>
-
-  //       <h2>Render Function</h2>
-  //       <Field
-  //         name="bio"
-  //         render={({ input, meta }) => (
-  //           <div>
-  //             <label>Bio</label>
-  //             <textarea {...input} />
-  //             {meta.touched && meta.error && <span>{meta.error}</span>}
-  //           </div>
-  //         )}
-  //       />
-
-  //       <h2>Render Function as Children</h2>
-  //       <Field name="phone">
-  //         {({ input, meta }) => (
-  //           <div>
-  //             <label>Phone</label>
-  //             <input type="text" {...input} placeholder="Phone" />
-  //             {meta.touched && meta.error && <span>{meta.error}</span>}
-  //           </div>
-  //         )}
-  //       </Field>
-
-  //       <button type="submit">Submit</button>
-  //     </form>
-  //   )}
-  // />
-              <Form onSubmit={(formObj) => console.log(formObj)}
-                validate={false}
-                render={({ handleSubmit }) => (
-                    <form onSubmit={handleSubmit}>
-                      <Grid container direction={'column'} spacing={2}>
-                        <Grid item xs={12}>
-                          <Field name='login' component={Input}/>
-                        </Grid>
-                        <Grid item xs={12}>
-                          <Field name='password' component={Input}/>
-                        </Grid>
-                        <Grid item xs={12}>
-                          <Field name='test' component='input' label='Пароль'/>
-                        </Grid>
-                        <Grid item xs={12}>
-                          <Button variant="contained" type='submit'>{typeButton}</Button>
-                        </Grid>
-                      </Grid>
-                    </form>
-                  )}>
-
-              </Form>
-)
-        
-    }
-
-
-//////////////////////////////////////////////////
-
-export default function BasicTabs() {
-  const [value, setValue] = React.useState(0);
+const SIGN_IN = 'Войти'
+const SIGN_UP = 'Регистрация'
+/////////////////////////////////////////////////////////////////
+function LoginFormContainer({registrationNewUser, newUserEmail, setModalOpen, signIn, isFetching}) {
+  //console.log(setModalOpen)
   const [activeTabs, setActiveTabs] = useState('Войти')
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
+  const onSubmit = (data) => {                                         //////// ВНИМАНИЕ. Тут ,возможно, нужно будет вынести эту ф-ю за пределы компоненты
+    if(activeTabs === SIGN_UP) registrationNewUser(data.login, data.password)
+    if(activeTabs === SIGN_IN) signIn(data.login, data.password, setModalOpen)
+    console.log(data)
+    //registrationNewUser(data.login, data.password)
+}
+  
   return (
     <Box sx={{ width: '100%' }}>
       <Grid container spacing={2} justifyContent={'space-around'}>
         <Grid item>
             <Typography variant="h6"
                 gutterBottom
-                sx={activeTabs === 'Войти'? { borderBottom: 'solid 2px orange', cursor: 'pointer'} : {cursor: 'pointer', color: '#fff'} }
-                onClick={() => setActiveTabs('Войти')}
+                sx={activeTabs === SIGN_IN ? { borderBottom: 'solid 2px orange', cursor: 'pointer'} : {cursor: 'pointer', color: '#fff'} }
+                onClick={() => setActiveTabs(SIGN_IN)}
               >Войти
             </Typography>
         </Grid>
         <Grid item>
             <Typography variant="h6"
                 gutterBottom
-                sx={activeTabs === 'Регистрация'? { borderBottom: 'solid 2px orange', cursor: 'pointer'} : {cursor: 'pointer', color: '#fff'} }
-                onClick={() => setActiveTabs('Регистрация')}
+                sx={activeTabs === SIGN_UP? { borderBottom: 'solid 2px orange', cursor: 'pointer'} : {cursor: 'pointer', color: '#fff'} }
+                onClick={() => setActiveTabs(SIGN_UP)}
               >Регистрация
             </Typography>
         </Grid>
       </Grid>
-      <LoginForm typeButton={activeTabs}/>
+      {newUserEmail && activeTabs === SIGN_UP ? 
+            <Box sx={{textAlign: 'center'}}>
+                <Grid container direction={'column'} mt={2}>
+                  <Grid item>
+                      <CheckCircleIcon color='success' fontSize='large'/>
+                  </Grid>
+                  <Grid item>
+                    <Typography variant="h6" gutterBottom>
+                        Вы зарегистртрованы
+                    </Typography>
+                  </Grid>
+                </Grid>
+            </Box>
+            : 
+            <Form onSubmit={onSubmit}
+                initialValues={newUserEmail ? {login: newUserEmail, password: ''} : {login: '', password: ''}}
+                validate={validate}
+                render={({ handleSubmit }) => (
+                    <form onSubmit={handleSubmit}>
+                      <Grid container direction={'column'} spacing={2}>
+                        <Grid item xs={12}>
+                          <Field name='login'>
+                          {props => (
+                                  <TextField
+                                    name={props.input.name}
+                                    value={props.input.value}
+                                    onChange={props.input.onChange}
+                                    fullWidth
+                                    placeholder='Логин'
+                                    error={props.meta.touched && props.meta.invalid}
+                                    helperText={props.meta.touched && props.meta.error}
+                                  />
+                              )}
+                          </Field>
+                        </Grid>
+                        <Grid item xs={12}>
+                          <Field name='password'>
+                            {props => {
+                                    return <TextField
+                                      name={props.input.name}
+                                      value={props.input.value}
+                                      onChange={props.input.onChange}
+                                      type='password'
+                                      fullWidth
+                                      placeholder='Пароль'
+                                      error={props.meta.touched && props.meta.invalid}
+                                      helperText={props.meta.touched && props.meta.error}
+                                    />
+                            }}
+                          </Field>
+                        </Grid>
+                        {activeTabs === SIGN_UP &&
+                            <Grid item xs={12}>
+                            <Field name='confirmPassword'>
+                              {props => {
+                                      return <TextField
+                                        name={props.input.name}
+                                        value={props.input.value}
+                                        onChange={props.input.onChange}
+                                        type='password'
+                                        fullWidth
+                                        placeholder='Подтвердить пароль'
+                                        error={props.meta.touched && props.meta.invalid}
+                                        helperText={props.meta.touched && props.meta.error}
+                                      />
+                              }}
+                            </Field>
+                          </Grid>}
+                        <Grid item xs={12}>
+                          <Button variant="contained" type='submit'>{activeTabs}</Button>
+                        </Grid>
+                      </Grid>
+                    </form>
+                  )}>
+            </Form>
+        }
+
+
     </Box>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    newUserEmail: state.auth.newUserEmail
+  }
+}
+
+export default connect(mapStateToProps, null)(LoginFormContainer)
