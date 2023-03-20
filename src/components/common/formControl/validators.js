@@ -1,8 +1,10 @@
+import { SIGN_UP } from "../../modal/ModalLogin";
 
 
-export const validate = (values) => {
+export const validate = (values, activeTabs) => {
     //debugger
     let reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+    let regPassword = /^[a-z0-9]{6,}$/i
     const errors = {}
     if (!values.login) {
         errors.login = 'Required'
@@ -13,11 +15,17 @@ export const validate = (values) => {
     if (!values.password) {
         errors.password = 'Required'
     }
+    if(!regPassword.test(values.password) && activeTabs === SIGN_UP) {
+        errors.password = 'Пароль должен содержать латинские буквы и цифры и не содержать пробелов'
+    }
     if (values.password && values.password.length < 6) {
         errors.password = 'минимум шесть символов'
     }
-    if (values.confirmPassword && (values.confirmPassword !== values.password)) {
+    if (activeTabs === SIGN_UP && values.confirmPassword && (values.confirmPassword !== values.password)) {
         errors.confirmPassword = 'Пароли не совпадают'
+    }
+    if (activeTabs === SIGN_UP && !values.confirmPassword) {
+        errors.password = 'Обязательное поле'
     }
     return errors
     }

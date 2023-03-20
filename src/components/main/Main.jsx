@@ -7,12 +7,12 @@ import Sidebar from './Sidebar';
 import Messages from './Messages/Messages';
 import Photos from './Photos/Photos';
 
-const Main = ({menuActive, setMenuActive}) => {
+const Main = ({menuActive, setMenuActive, setAutoLogin}) => {
 
     return(
         <main className={style.main} onClick={() => setMenuActive(false)}> 
             <div className={!menuActive ? style.main_navbar : `${style.main_navbar} ${style.main_navbar_active}`} onClick={(e) => e.stopPropagation()}>
-                <Sidebar setMenuActive={setMenuActive}/>
+                <Sidebar setMenuActive={setMenuActive} setAutoLogin={setAutoLogin}/>
             </div>
             <div className={style.main_container}>
                 <Routes>

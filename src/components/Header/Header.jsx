@@ -14,7 +14,8 @@ import { registrationNewUser, signIn } from '../../redux/authReducer';
 import { connect } from 'react-redux';
 import BasicModal from './../modal/Modal';
 
-export const MODAL_AUTH = 'MODAL_AUTH'
+// export const MODAL_AUTH = 'MODAL_AUTH'
+// export const CHANGE_PERSONAL_DATA = 'CHANGE_PERSONAL_DATA'
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -53,7 +54,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 
-function Header({setMenuActive, isAuth, setModalOpen, registrationNewUser, modalOpen, signIn, isFetching, currentUser, ...props}) {
+function Header({setMenuActive, isAuth, setModalOpen, modalOpen, isFetching, currentUser}) {
 //console.log(props)
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -89,7 +90,7 @@ function Header({setMenuActive, isAuth, setModalOpen, registrationNewUser, modal
           {isAuth ?
             <Grid container>
               <Typography variant="h6" gutterBottom sx={{margin: '0 8px 0 8px'}}>{currentUser}</Typography>
-              <Avatar alt="user img" src={i} /> 
+              <Avatar alt="user img" src={i} onClick={() => setModalOpen(true)}/> 
             </Grid>
             : 
             <Button variant="contained" color="exitButton" onClick={ ()=> setModalOpen(true) }>Войти</Button>}
@@ -97,7 +98,12 @@ function Header({setMenuActive, isAuth, setModalOpen, registrationNewUser, modal
           </Grid>
         </Grid>
       </AppBar>
-      {modalOpen && <BasicModal typeModal={MODAL_AUTH} modalOpen={modalOpen} setModalOpen={setModalOpen} registrationNewUser={registrationNewUser} signIn={signIn} isFetching={isFetching}/>}
+      {/* {modalOpen && <BasicModal 
+                      typeModal={MODAL_AUTH} 
+                      modalOpen={modalOpen} 
+                      setModalOpen={setModalOpen} 
+                      isFetching={isFetching}
+                      />} */}
     </Box>
   );
 }
@@ -109,15 +115,15 @@ const mapStateToProps = (state) => {
     currentUser: state.auth.currentUser
   }
 }
-const mapDispatchToProps = (dispatch) => {
-  return {
-    registrationNewUser: (email, password) => {
-        dispatch(registrationNewUser(email, password))
-    },
-    signIn: (email, password, setModalOpen) => {
-      dispatch(signIn(email, password, setModalOpen))
-    }
-  }
-}
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     registrationNewUser: (email, password) => {
+//         dispatch(registrationNewUser(email, password))
+//     },
+//     signIn: (email, password, setModalOpen) => {
+//       dispatch(signIn(email, password, setModalOpen))
+//     }
+//   }
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header)
+export default connect(mapStateToProps, null)(Header)
