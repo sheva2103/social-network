@@ -10,7 +10,7 @@
         flex: 0 0 auto;
         position: fixed;
         /* height: 100vh; */
-        top: 100px;
+        /*top: 100px;*/
         left: 0px;
         transform: translateX(0);
         transition: all 0.5s;
@@ -24,6 +24,7 @@
         flex: 0 0 80%;
         background-color: #383d47;
         border-radius: 6px;
+        padding: 8px;
     }
 nav {
     text-decoration: none;

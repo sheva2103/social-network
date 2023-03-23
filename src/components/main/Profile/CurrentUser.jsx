@@ -3,6 +3,7 @@ import { Box } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
+import { connect } from 'react-redux';
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -16,19 +17,19 @@ const Item = styled(Paper)(({ theme }) => ({
 
 
 
-const CurrentUser = () => {
+const CurrentUser = ({userInfo}) => {
     return ( 
         
         <Box sx={{ flexGrow: 1 }}>
-            <Grid container spacing={2} columns={12} sx={{marginTop: '0px'}}>
-                <Grid item xs={12} md={12} lg={4}>
-                    <Item>имя</Item>
+            <Grid container spacing={2} columns={12} sx={{marginTop: '0px', paddingBottom: '8px'}}>
+                <Grid item xs={'auto'} md={12} lg={'auto'}>
+                    <Item>Имя: {userInfo?.name}</Item>
                 </Grid>
-                <Grid item xs={12} md={6} lg={4}>
-                    <Item>Город</Item>
+                <Grid item xs={'auto'} md={6} lg={'auto'}>
+                    <Item>Город: {userInfo?.city}</Item>
                 </Grid>
-                <Grid item xs={12} md={6} lg={4}>
-                    <Item>дата</Item>
+                <Grid item xs={'auto'} md={6} lg={'auto'}>
+                    <Item>Дата рождения: {userInfo?.DateOfBirth}</Item>
                 </Grid>
             </Grid>
         </Box>
@@ -36,4 +37,8 @@ const CurrentUser = () => {
     );
 }
 
-export default CurrentUser;
+const mapStateToProps = (state) => ({
+    userInfo: state.profile.userInfo
+})
+
+export default connect(mapStateToProps, null)(CurrentUser)

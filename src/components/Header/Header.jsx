@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -12,7 +12,9 @@ import Avatar from '@mui/material/Avatar';
 import i from '../../logo.svg'
 import { registrationNewUser, signIn } from '../../redux/authReducer';
 import { connect } from 'react-redux';
-import BasicModal from './../modal/Modal';
+import BasicModal, { CHANGE_PERSONAL_DATA, MODAL_AUTH } from './../modal/Modal';
+import { searchUser } from './../../redux/searchReducer';
+import { NavLink } from 'react-router-dom';
 
 // export const MODAL_AUTH = 'MODAL_AUTH'
 // export const CHANGE_PERSONAL_DATA = 'CHANGE_PERSONAL_DATA'
@@ -54,8 +56,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 
-function Header({setMenuActive, isAuth, setModalOpen, modalOpen, isFetching, currentUser}) {
+function Header({setMenuActive, isAuth, setModalOpen, currentUser, userPhoto, searchUser}) {
 //console.log(props)
+  const [searchValue, setSearchValue] = useState('')
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" color='header'>
@@ -73,15 +77,15 @@ function Header({setMenuActive, isAuth, setModalOpen, modalOpen, isFetching, cur
                 <MenuIcon />
               </IconButton>
               <Typography variant={window.innerWidth < 400 ? 'body2' : 'h6'} sx={{mr: '8px'}}>MINISOCIALNETWORK</Typography>
-                <Search onChange={(e) => console.log(e.target.value)} >
-                  
+              <NavLink to={searchValue.length > 1 && '/search'}>
+                  <SearchIcon sx={{ml: '10px', cursor: 'pointer'}} onClick={() => {if(searchValue.length > 1) searchUser(searchValue)}}/>
+                </NavLink>
+                <Search onChange={(e) => setSearchValue(e.target.value)} >
                   <StyledInputBase
                     placeholder="Search…"
                     inputProps={{ 'aria-label': 'search' }}
                   />
                 </Search>
-                <SearchIcon sx={{ml: '10px', cursor: 'pointer'}} onClick={() => console.log(7777)}/>
-                
               </Toolbar>
               
           </Grid>
@@ -90,10 +94,10 @@ function Header({setMenuActive, isAuth, setModalOpen, modalOpen, isFetching, cur
           {isAuth ?
             <Grid container>
               <Typography variant="h6" gutterBottom sx={{margin: '0 8px 0 8px'}}>{currentUser}</Typography>
-              <Avatar alt="user img" src={i} onClick={() => setModalOpen(true)}/> 
+              <Avatar alt="user img" sx={{cursor: 'pointer'}} src={userPhoto || i} onClick={() => setModalOpen({isOpen: true, type: CHANGE_PERSONAL_DATA})}/> 
             </Grid>
             : 
-            <Button variant="contained" color="exitButton" onClick={ ()=> setModalOpen(true) }>Войти</Button>}
+            <Button variant="contained" color="exitButton" onClick={ ()=> setModalOpen({isOpen: true, type: MODAL_AUTH}) }>Войти</Button>}
         
           </Grid>
         </Grid>
@@ -111,19 +115,16 @@ function Header({setMenuActive, isAuth, setModalOpen, modalOpen, isFetching, cur
 const mapStateToProps = (state) => {
   return {
     isAuth: state.auth.isAuth,
-    isFetching: state.auth.isFetching,
-    currentUser: state.auth.currentUser
+    currentUser: state.auth.currentUser,
+    userPhoto: state.profile.userInfo.linkUserPhoto
   }
 }
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     registrationNewUser: (email, password) => {
-//         dispatch(registrationNewUser(email, password))
-//     },
-//     signIn: (email, password, setModalOpen) => {
-//       dispatch(signIn(email, password, setModalOpen))
-//     }
-//   }
-// }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    searchUser: (value) => {
+      dispatch(searchUser(value))
+    }
+  }
+}
 
-export default connect(mapStateToProps, null)(Header)
+export default connect(mapStateToProps, mapDispatchToProps)(Header)

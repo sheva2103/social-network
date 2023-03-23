@@ -1,4 +1,5 @@
-import {signIn} from './authReducer'
+import {getName, signIn} from './authReducer'
+import { getUserData } from './profileReducer'
 
 const INITIALIZE_APP = 'INITIALIZE_APP'
 
@@ -21,7 +22,8 @@ export const initializedApp = (value) => (dispatch) => {
     dispatch(initializedSuccess(true))
     if(value) {
         const autoAuth = dispatch(signIn(value.email, value.password))
-        Promise.all([autoAuth])
+        const getCurrentUserData = dispatch(getUserData(getName(value.email))) || null
+        Promise.all([autoAuth, getCurrentUserData])
             //.then(() => dispatch(initializedSuccess(false)))
             .finally(() => dispatch(initializedSuccess(false)))
     } else dispatch(initializedSuccess(false))

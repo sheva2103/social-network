@@ -1,5 +1,6 @@
-import { authAPI } from "../api/api"
+import { authAPI, profileAPI } from "../api/api"
 import { FORM_ERROR } from 'final-form';
+import { getUserData, setUserData } from "./profileReducer";
 
 const REGISTRATION_NEW_USER = 'REGISTRATION_NEW_USER'
 const REGISTRATION_SUCCESS = 'REGISTRATION_SUCCESS'
@@ -12,10 +13,16 @@ const initialState = {
     isAuth: false,
     newUserEmail: false,
     currentUser: false,
+    currentUserInfo: null,
     isFetching: false,
     userID: null,
     userEmail: null,
     token: null
+}
+
+export const getName = (email) => {
+    let index = email.indexOf('@')
+    return email.substring(0, index)
 }
 
 const authReducer = (state = initialState, action) => {
@@ -27,8 +34,8 @@ const authReducer = (state = initialState, action) => {
         case REGISTRATION_SUCCESS:
             return {...state, registrationSuccess: action.registrationSuccess}
         case SIGN_IN:
-            let index = action.email.indexOf('@')
-            return {...state, isAuth: true, currentUser: action.email.substring(0, index), userID: action.id, userEmail: action.email, token: action.token}
+            //let index = action.email.indexOf('@')
+            return {...state, isAuth: true, currentUser: getName(action.email), userID: action.id, userEmail: action.email, token: action.token}
         case IS_FETCHING_AUTH:
             return {...state, isFetching: action.isFetching}
         case LOGOUT: {
@@ -38,7 +45,7 @@ const authReducer = (state = initialState, action) => {
     }
 }
 
-const isFetchingAuthAC = (isFetching) => ({type: IS_FETCHING_AUTH, isFetching})
+export const isFetchingAuthAC = (isFetching) => ({type: IS_FETCHING_AUTH, isFetching})
 const registrationNewUserAC = (email) => ({type: REGISTRATION_NEW_USER, payload: email})
 const signInAC = (email, id, token) => ({type: SIGN_IN, email, id, token})
 
@@ -49,6 +56,7 @@ export const registrationNewUser = (email, password) => async(dispatch) => {
             const user = response.user;
             dispatch(registrationNewUserAC(user.email))
             dispatch(isFetchingAuthAC(false))
+            await profileAPI.createUserDB(getName(email), email)
         } catch(error)  {
             const errorCode = error.code;
             const errorMessage = error.message;
@@ -65,8 +73,9 @@ export const signIn = (email, password, setModalOpen) => async(dispatch) => {
             let response = await authAPI.signIn(email, password)
             const user = response.user;
             dispatch(signInAC(user.email, user.uid, user.accessToken))
-            if(setModalOpen) setModalOpen(false)
+            if(setModalOpen) setModalOpen({isOpen: false, type: null})
             localStorage.setItem('authData', JSON.stringify({email, password}))
+            dispatch(getUserData(getName(email)))
         } catch (error) {
             const errorCode = error.code;
             return { [FORM_ERROR]: errorCode }
@@ -78,6 +87,7 @@ export const signIn = (email, password, setModalOpen) => async(dispatch) => {
 export const logout = (logoutFunk) => (dispatch) => {
     dispatch({type: LOGOUT})
     logoutFunk(null)
+    //dispatch(setUserData(null, [], [], [], []))
 }
 
 export default authReducer

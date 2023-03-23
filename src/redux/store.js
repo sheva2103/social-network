@@ -2,11 +2,15 @@ import { combineReducers, legacy_createStore as createStore, applyMiddleware, co
 import thunkMiddleware from 'redux-thunk';
 import appReducer from './app-reducer';
 import authReducer from './authReducer';
+import profileReducer from './profileReducer';
+import searchReducer from './searchReducer';
 
 
 let reducers = combineReducers({
     app: appReducer,
-    auth: authReducer
+    auth: authReducer,
+    profile: profileReducer,
+    search: searchReducer
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose

@@ -17,7 +17,8 @@ const App = ({initialized, isAuth, initializedApp, isFetching}) => {
   console.log(isAuth)
 
   let [menuActive, setMenuActive] = useState(false)
-  let [modalOpen, setModalOpen] = useState(false)
+  //let [modalOpen, setModalOpen] = useState(false)
+  let [modalOpen, setModalOpen] = useState({isOpen: false, type: null})
 
   const [autoLogin, setAutoLogin] = useLocalStorage(isAuth)
   useEffect(() => {
@@ -29,8 +30,8 @@ const App = ({initialized, isAuth, initializedApp, isFetching}) => {
     <BrowserRouter>
       <ThemeProvider theme={theme}>
         <Header menuActive={menuActive} setMenuActive={setMenuActive} setModalOpen={setModalOpen} modalOpen={modalOpen} />
-        <Main menuActive={menuActive} setMenuActive={setMenuActive} setAutoLogin={setAutoLogin}/>
-        <BasicModal modalOpen={modalOpen} setModalOpen={setModalOpen} isFetching={isFetching} typeModal={MODAL_AUTH}/>
+        <Main menuActive={menuActive} setMenuActive={setMenuActive} setAutoLogin={setAutoLogin} />
+        <BasicModal modalOpen={modalOpen} setModalOpen={setModalOpen} isFetching={isFetching} />
       </ThemeProvider>
     </BrowserRouter>
   )

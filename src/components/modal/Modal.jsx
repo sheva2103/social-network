@@ -30,16 +30,14 @@ export default function BasicModal({modalOpen, setModalOpen, typeModal, isFetchi
 
     <div>
       <Modal
-        open={modalOpen}
-        onClose={() => setModalOpen(false)}
+        open={modalOpen.isOpen}
+        onClose={() => setModalOpen({isOpen: false, type: null})}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          {typeModal === MODAL_AUTH && <LoginFormContainer 
-                                            setModalOpen={setModalOpen} 
-                                            />}
-          {/* {typeModal === CHANGE_PERSONAL_DATA && <ChangeUserData />} */}
+          {modalOpen.type === MODAL_AUTH && <LoginFormContainer setModalOpen={setModalOpen} />}
+          {modalOpen.type === CHANGE_PERSONAL_DATA && <ChangeUserData setModalOpen={setModalOpen} />}
           {<Preloader isFetching={isFetching}/>}
           
         </Box>
