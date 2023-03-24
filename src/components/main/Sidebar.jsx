@@ -7,7 +7,7 @@ import { logout } from './../../redux/authReducer';
 //import { compose } from 'redux'
 
 
-const Sidebar = ({setMenuActive, setAutoLogin, logout, isAuth}) => {
+const Sidebar = ({setMenuActive, setAutoLogin, logout, isAuth, currentUser}) => {
 
     const selectedLink = ({isActive}) => isActive ? style.activeLink : ''
     //console.log(window.innerWidth)
@@ -18,7 +18,7 @@ const Sidebar = ({setMenuActive, setAutoLogin, logout, isAuth}) => {
                     <ArrowBackIcon sx={{display: {xs: 'block', md: 'none'}}}/>
                 </div>
             <ul>
-                <li><span><NavLink to='/' className={selectedLink}>Главная</NavLink></span></li>
+                <li><span><NavLink to={`/profile/${currentUser}`} className={selectedLink}>Главная</NavLink></span></li>
                 <li><span><NavLink to='/friends' className={selectedLink}>Друзья</NavLink></span></li>
                 <li><span><NavLink to='/messages' className={selectedLink}>Сообщения</NavLink></span></li>
                 <li><span><NavLink to='/photos' className={selectedLink}>Фотографии</NavLink></span></li>

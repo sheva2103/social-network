@@ -7,6 +7,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea, CardActions } from '@mui/material';
+import { NavLink } from 'react-router-dom';
 
 
 const SearchPage = ({resultSearchUser}) => {
@@ -20,12 +21,14 @@ const SearchPage = ({resultSearchUser}) => {
                         <Grid item xs={12} sm={6} md={4} lg={3} key={user.id}>
                             <Card sx={{ maxWidth: 345, margin: '0 auto' }}>
                                 <CardActionArea>
-                                    <CardMedia
-                                        component="img"
-                                        height="140"
-                                        image={user.userInfo.linkUserPhoto}
-                                        alt="green iguana"
-                                    />
+                                    <NavLink to={`/profile/${user.id}`}>
+                                        <CardMedia
+                                            component="img"
+                                            height="140"
+                                            image={user.userInfo.linkUserPhoto}
+                                            alt="green iguana"
+                                        />
+                                    </NavLink>
                                     <CardContent sx={{backgroundColor: '#282c34'}}>
                                         <Typography gutterBottom variant="h5" component="span" sx={{color: '#fff'}}>
                                             {user.userInfo.name}

@@ -14,7 +14,6 @@ import { initializedApp } from './redux/app-reducer'
 
 
 const App = ({initialized, isAuth, initializedApp, isFetching}) => {
-  console.log(isAuth)
 
   let [menuActive, setMenuActive] = useState(false)
   //let [modalOpen, setModalOpen] = useState(false)

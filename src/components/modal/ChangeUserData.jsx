@@ -80,7 +80,7 @@ const ChangeUserData = ({userInfo, changeUserInfo, currentUser, setModalOpen}) =
 
 const mapStateToProps = (state) => {
     return {
-        userInfo: state.profile.userInfo,
+        userInfo: state.auth.currentUserData.userInfo,
         currentUser: state.auth.currentUser
     }
 }

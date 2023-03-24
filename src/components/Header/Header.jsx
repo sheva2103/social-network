@@ -116,7 +116,7 @@ const mapStateToProps = (state) => {
   return {
     isAuth: state.auth.isAuth,
     currentUser: state.auth.currentUser,
-    userPhoto: state.profile.userInfo.linkUserPhoto
+    userPhoto: state.auth.currentUserData?.userInfo?.linkUserPhoto
   }
 }
 const mapDispatchToProps = (dispatch) => {

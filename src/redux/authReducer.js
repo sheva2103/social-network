@@ -7,13 +7,14 @@ const REGISTRATION_SUCCESS = 'REGISTRATION_SUCCESS'
 const SIGN_IN = 'SIGN_IN'
 const IS_FETCHING_AUTH = 'IS_FETCHING_AUTH'
 const LOGOUT = 'LOGOUT' 
+const USER_DATA = 'USER_DATA'
 
 
 const initialState = {
     isAuth: false,
     newUserEmail: false,
     currentUser: false,
-    currentUserInfo: null,
+    currentUserData: null,
     isFetching: false,
     userID: null,
     userEmail: null,
@@ -41,6 +42,8 @@ const authReducer = (state = initialState, action) => {
         case LOGOUT: {
             return {...state, isAuth: false, currentUser: false, userEmail: null, userID: null, token: null}
         }
+        case USER_DATA:
+            return {...state, currentUserData: action.userData}
         default: return state
     }
 }
@@ -72,10 +75,14 @@ export const signIn = (email, password, setModalOpen) => async(dispatch) => {
         try{
             let response = await authAPI.signIn(email, password)
             const user = response.user;
+            //////////////////
+            let userData = await profileAPI.getUserData(getName(email))
+            dispatch({type: USER_DATA, userData})
+            //////////////////////
             dispatch(signInAC(user.email, user.uid, user.accessToken))
             if(setModalOpen) setModalOpen({isOpen: false, type: null})
             localStorage.setItem('authData', JSON.stringify({email, password}))
-            dispatch(getUserData(getName(email)))
+            //dispatch(getUserData(getName(email)))
         } catch (error) {
             const errorCode = error.code;
             return { [FORM_ERROR]: errorCode }
