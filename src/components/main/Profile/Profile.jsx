@@ -4,22 +4,15 @@ import AddNewPost from './AddNewPost';
 import CurrentUser from './CurrentUser';
 import Grid from '@mui/material/Grid';
 import PostsContainer from './PostsContainer';
-import { compose } from 'redux';
-import { WithAuthRedirect } from './../../common/WithAuthRedirect';
-import { useLocation } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getUserData } from './../../../redux/profileReducer';
 
 const Profile = ({getUserData}) => {
-    let location = useLocation()
-    let navigate = useNavigate()
     let {user} = useParams()
 
     useEffect(() => {
         getUserData(user)
-        console.log(user)
     }, [user])
 
     return ( 

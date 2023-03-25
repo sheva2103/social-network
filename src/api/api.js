@@ -1,6 +1,6 @@
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { collection, addDoc, getDocs, setDoc, doc, getDoc, updateDoc, arrayUnion, deleteDoc, query, where } from "firebase/firestore";
+import { collection, addDoc, getDocs, setDoc, doc, getDoc, updateDoc, arrayUnion, arrayRemove, deleteDoc, query, where } from "firebase/firestore";
 import { db } from "../firebase";
 
 
@@ -60,6 +60,18 @@ export const profileAPI = {
         const loginRef = doc(db, "users", login)
         return updateDoc(loginRef, {
             posts: arrayUnion(newPost)
+        });
+    },
+    addFriend(friend, login) {
+        const loginRef = doc(db, "users", login)
+        return updateDoc(loginRef, {
+            friends: arrayUnion(friend)
+        });
+    },
+    deleteFriend(friend, login) {
+        const loginRef = doc(db, "users", login)
+        return updateDoc(loginRef, {
+            friends: arrayRemove(friend)
         });
     }
 }

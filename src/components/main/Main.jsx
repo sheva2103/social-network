@@ -25,7 +25,7 @@ const Main = ({menuActive, setMenuActive, setAutoLogin, currentUser}) => {
             <div className={style.main_container}>
                 <Routes>
                     <Route path={`/profile/:user`} element={<Profile />}/>
-                    <Route path='/friends/*' element={<Friends />} />
+                    <Route path='/friends/:user' element={<Friends />} />
                     <Route path='/messages' element={<Messages />} />
                     <Route path='/photos' element={<Photos />} />
                     <Route path='/search' element={<SearchPage />} />

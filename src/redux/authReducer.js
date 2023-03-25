@@ -9,6 +9,11 @@ const IS_FETCHING_AUTH = 'IS_FETCHING_AUTH'
 const LOGOUT = 'LOGOUT' 
 const USER_DATA = 'USER_DATA'
 
+const CHANGE_USER_INFO = 'CHANGE_USER_INFO'
+const ADD_NEW_POST = 'ADD_NEW_POST'
+const ADD_FRIEND = 'ADD_FRIEND'
+const DELETE_FRIEND = 'DELETE_FRIEND'
+
 
 const initialState = {
     isAuth: false,
@@ -44,6 +49,14 @@ const authReducer = (state = initialState, action) => {
         }
         case USER_DATA:
             return {...state, currentUserData: action.userData}
+        case CHANGE_USER_INFO:
+            return {...state, currentUserData: {...state.currentUserData, userInfo: action.data}}
+        case ADD_NEW_POST:
+            return {...state, currentUserData: {...state.currentUserData, posts: [...state.currentUserData.posts, action.newPost]}}
+        case ADD_FRIEND:
+            return {...state, currentUserData: {...state.currentUserData, friends: [...state.currentUserData.friends, action.friend]}}
+        case DELETE_FRIEND:
+            return {...state, currentUserData: {...state.currentUserData, friends: state.currentUserData.friends.filter(user => user.name !== action.friend.name)}}
         default: return state
     }
 }
@@ -96,5 +109,49 @@ export const logout = (logoutFunk) => (dispatch) => {
     logoutFunk(null)
     //dispatch(setUserData(null, [], [], [], []))
 }
+/////////////////////////////////////////////
+export const changeUserInfo = (login, data, setModalOpen) => async(dispatch) => {
+    dispatch(isFetchingAuthAC(true))
+    try {
+        await profileAPI.changeUserInfo(login, data)
+        dispatch({type: CHANGE_USER_INFO, data})
+        setModalOpen({isOpen: false, type: null})
+    } catch(error) {
+        console.log(error)
+    } finally {
+        dispatch(isFetchingAuthAC(false))
+    }
+}
+
+export const addNewPost = (newPost, login) => async(dispatch) => {
+
+    try {
+        await profileAPI.addNewPost(newPost, login)
+        dispatch({type: ADD_NEW_POST, newPost})
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const addFriend = (friend, login) => async(dispatch) => {
+    try {
+        await profileAPI.addFriend(friend, login)
+        dispatch({type: ADD_FRIEND, friend})
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const deleteFriend = (friend, login) => async(dispatch) => {
+    debugger
+    try {
+        await profileAPI.deleteFriend(friend, login)
+        dispatch({type: DELETE_FRIEND, friend})
+    } catch(err) {
+        console.log(err)
+    }
+}
+
+//////////////////////////////////////////////
 
 export default authReducer

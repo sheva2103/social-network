@@ -8,10 +8,11 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea, CardActions } from '@mui/material';
 import { NavLink } from 'react-router-dom';
+import { addFriend } from '../../../redux/authReducer'
+import { deleteFriend } from './../../../redux/authReducer';
 
 
-const SearchPage = ({resultSearchUser}) => {
-    console.log(resultSearchUser)
+const SearchPage = ({resultSearchUser, addFriend, currentUser, currentUserFriends, deleteFriend}) => {
 
     return ( 
         <Box sx={{padding: '8px'}}>
@@ -36,7 +37,17 @@ const SearchPage = ({resultSearchUser}) => {
                                     </CardContent>
                                 </CardActionArea>
                                 <CardActions sx={{backgroundColor: '#282c34'}}>
-                                <Button variant="contained">Добавить в друзья</Button>
+                                {currentUser !== user.id &&
+                                    (currentUserFriends.some(friend => friend.name === user.id) ?
+                                        <Button variant="contained"
+                                                onClick={() => deleteFriend({name: user.id, photo: user.userInfo.linkUserPhoto, fullName: user.userInfo.name}, currentUser)}
+                                        >Удалить</Button>
+                                        :
+                                        <Button  variant="contained"
+                                            onClick={() => addFriend({name: user.id, photo: user.userInfo.linkUserPhoto, fullName: user.userInfo.name}, currentUser)} 
+                                                >Добавить в друзья</Button>        
+                                    )
+                                }
                                 </CardActions>
                             </Card>
                         </Grid>
@@ -50,7 +61,9 @@ const SearchPage = ({resultSearchUser}) => {
 }
 
 const mapStateToProps = (state) => ({
-    resultSearchUser: state.search.searchUser
+    resultSearchUser: state.search.searchUser,
+    currentUser: state.auth.currentUser,
+    currentUserFriends: state.auth.currentUserData.friends
 })
 
-export default connect(mapStateToProps, null)(SearchPage)
+export default connect(mapStateToProps, {addFriend, deleteFriend})(SearchPage)

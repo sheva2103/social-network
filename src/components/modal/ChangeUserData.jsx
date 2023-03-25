@@ -4,7 +4,7 @@ import { Field, Form } from 'react-final-form';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { connect } from 'react-redux';
-import { changeUserInfo } from '../../redux/profileReducer';
+import { changeUserInfo } from '../../redux/authReducer';
 
 const SAVE = 'Сохранить'
 
