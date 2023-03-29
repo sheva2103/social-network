@@ -1,6 +1,6 @@
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { collection, addDoc, getDocs, setDoc, doc, getDoc, updateDoc, arrayUnion, arrayRemove, deleteDoc, query, where } from "firebase/firestore";
+import { collection, addDoc, getDocs, setDoc, doc, getDoc, updateDoc, arrayUnion, arrayRemove, deleteDoc, query, where, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase";
 
 
@@ -31,7 +31,8 @@ export const profileAPI = {
             posts: [],
             friends: [],
             music: [],
-            photo: []
+            photo: [],
+            messages: []
         }
         return setDoc(doc(db, "users", login), user);
     },
@@ -89,4 +90,21 @@ export const searchAPI = {
                 });
                 return searchResult
     }
+}
+
+export const messageAPI = {
+
+    // sendMessage(message, addressee, sender) {
+    //     const messagesRef = doc(db, "users", addressee)  
+    //     return updateDoc(messagesRef, {
+    //         'messages.test': arrayUnion({message: message.message, name: message.fullName})
+    //     });
+    // }
+    sendMessage(message, addressee, sender) {
+        const messagesRef = doc(db, "users", addressee)  
+        return updateDoc(messagesRef, {
+            'messages': arrayUnion({sender: "eee", message: message.message, name: message.fullName})
+        });
+    }
+    
 }

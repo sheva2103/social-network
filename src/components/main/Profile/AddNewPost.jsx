@@ -21,13 +21,13 @@ const AddNewPost = ({userPhoto, addNewPost, currentUser, isAuth}) => {
                     
                     render={({handleSubmit, form, submitting }) => (
                         <form onSubmit={(ev) => handleSubmit(ev).then(() => form.reset())}>
-                            <Grid container spacing={2} zIndex={5}>
-                                <Grid container item lg={1} justifyContent={'center'} alignItems={'center'}>
+                            <Grid container spacing={2} zIndex={5} sx={{padding: '8px'}}>
+                                <Grid container item xs={1} lg={1} justifyContent={'center'} alignItems={'center'}>
                                     <Stack spacing={2} sx={{padding: '8px'}}>
                                         <Avatar alt='logo' src={userPhoto || i}/>
                                     </Stack>
                                 </Grid>
-                                <Grid container item lg={9} alignItems={'center'}>
+                                <Grid container item xs={11} lg={9} alignItems={'center'}>
                                     <Field name='newPost'>{props => (
                                         <TextField fullWidth sx={{padding: '8px',
                                                                 '& input': {borderBottom: 'solid 1px orange', color: 'orange'},
@@ -42,7 +42,7 @@ const AddNewPost = ({userPhoto, addNewPost, currentUser, isAuth}) => {
                                                             '& label': {color: 'orange'}}}
                                         id="filled-basic" label="Новый пост" variant="filled" color='neutral'/> */}
                                 </Grid>
-                                <Grid container item lg={2} justifyContent={'center'} alignItems={'center'}>
+                                <Grid container item xs={12} lg={2} justifyContent={'center'} alignItems={'center'}>
                                     <Button disabled={submitting} variant="contained" color='button' sx={{padding: 'auto'}} type='submit'>Отправить</Button>
                                 </Grid>
                             </Grid>

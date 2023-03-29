@@ -1,6 +1,5 @@
 import { authAPI, profileAPI } from "../api/api"
 import { FORM_ERROR } from 'final-form';
-import { getUserData, setUserData } from "./profileReducer";
 
 const REGISTRATION_NEW_USER = 'REGISTRATION_NEW_USER'
 const REGISTRATION_SUCCESS = 'REGISTRATION_SUCCESS'
@@ -143,7 +142,6 @@ export const addFriend = (friend, login) => async(dispatch) => {
 }
 
 export const deleteFriend = (friend, login) => async(dispatch) => {
-    debugger
     try {
         await profileAPI.deleteFriend(friend, login)
         dispatch({type: DELETE_FRIEND, friend})

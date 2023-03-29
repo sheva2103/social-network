@@ -20,7 +20,7 @@ const Sidebar = ({setMenuActive, setAutoLogin, logout, isAuth, currentUser}) => 
             <ul>
                 <li><span><NavLink to={`/profile/${currentUser}`} className={selectedLink}>Главная</NavLink></span></li>
                 <li><span><NavLink to={`/friends/${currentUser}`} className={selectedLink}>Друзья</NavLink></span></li>
-                <li><span><NavLink to='/messages' className={selectedLink}>Сообщения</NavLink></span></li>
+                <li><span><NavLink to={`/messages/${currentUser}`} className={selectedLink}>Сообщения</NavLink></span></li>
                 <li><span><NavLink to='/photos' className={selectedLink}>Фотографии</NavLink></span></li>
                 {isAuth && <li><span style={{cursor: 'pointer'}} onClick={() => logout(setAutoLogin)}>Выйти</span></li>}
             </ul>

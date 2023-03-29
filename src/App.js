@@ -6,7 +6,6 @@ import theme from './theme';
 import { useState, useEffect } from 'react';
 import Header from './components/Header/Header';
 import BasicModal, { MODAL_AUTH } from './components/modal/Modal';
-import { getAuth, setPersistence, signInWithRedirect, inMemoryPersistence, GoogleAuthProvider } from "firebase/auth";
 import { connect } from 'react-redux';
 import { useLocalStorage } from './components/common/hooks/hooks';
 import Preloader from './components/common/Preloader';
@@ -24,6 +23,7 @@ const App = ({initialized, isAuth, initializedApp, isFetching}) => {
     initializedApp(autoLogin)
   }, [])
 
+  //if(!isAuth) return <StartPage />
   if(initialized) return <Preloader isFetching={initialized}/>
   return (
     <BrowserRouter>

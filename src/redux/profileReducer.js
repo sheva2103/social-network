@@ -1,5 +1,6 @@
 import { profileAPI } from "../api/api"
 
+
 const GET_USER_DATA = 'GET_USER_DATA'
 const ADD_NEW_POST = 'ADD_NEW_POST'
 
@@ -18,7 +19,7 @@ const initialState = {
         posts: [],
         friends: [],
         photos: [],
-        music: []
+        music: [],
 }
 
 const profileReducer = (state = initialState, action) => {

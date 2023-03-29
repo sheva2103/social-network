@@ -1,0 +1,21 @@
+
+.activeLink {
+    /* border-right: solid 2px orange;
+    padding-left: 10px; */
+    padding: 8px;
+    border-radius: 8px;
+    margin-left: 16px;
+    background-color: #282c34;
+}
+
+.dialogMessage {
+    padding: 4px;
+    border-radius: 16px 0px 0px 16px;
+    background-color: #383d47;
+    display: inline-block;
+}
+
+.isOwner {
+    text-align: start;
+    border-radius: 0px 16px 16px 0px;
+}

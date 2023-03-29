@@ -12,7 +12,7 @@ import { addFriend } from '../../../redux/authReducer'
 import { deleteFriend } from './../../../redux/authReducer';
 
 
-const SearchPage = ({resultSearchUser, addFriend, currentUser, currentUserFriends, deleteFriend}) => {
+const SearchPage = ({resultSearchUser, addFriend, currentUser, currentUserFriends, deleteFriend, isAuth}) => {
 
     return ( 
         <Box sx={{padding: '8px'}}>
@@ -37,7 +37,7 @@ const SearchPage = ({resultSearchUser, addFriend, currentUser, currentUserFriend
                                     </CardContent>
                                 </CardActionArea>
                                 <CardActions sx={{backgroundColor: '#282c34'}}>
-                                {currentUser !== user.id &&
+                                {isAuth && currentUser !== user.id &&
                                     (currentUserFriends.some(friend => friend.name === user.id) ?
                                         <Button variant="contained"
                                                 onClick={() => deleteFriend({name: user.id, photo: user.userInfo.linkUserPhoto, fullName: user.userInfo.name}, currentUser)}
@@ -61,9 +61,10 @@ const SearchPage = ({resultSearchUser, addFriend, currentUser, currentUserFriend
 }
 
 const mapStateToProps = (state) => ({
+    isAuth: state.auth.isAuth,
     resultSearchUser: state.search.searchUser,
     currentUser: state.auth.currentUser,
-    currentUserFriends: state.auth.currentUserData.friends
+    currentUserFriends: state.auth.currentUserData?.friends
 })
 
 export default connect(mapStateToProps, {addFriend, deleteFriend})(SearchPage)
