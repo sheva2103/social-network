@@ -7,33 +7,18 @@ import style from './Messages.module.css'
 import DialogElement from './DialogElement';
 
 
-const Dialogs = ({dialogs}) => {
+const Dialogs = ({dialogs, currentUser}) => {
     console.log(dialogs)
     const selectedLink = ({isActive}) => isActive ? style.activeLink : ''
-
     return ( 
 
         <Box>
             <Grid container>
                 <Grid item xs={4}>
                     <ul style={{listStyle: 'none'}}>
-                        {/* <li><Typography variant="h6" gutterBottom sx={{color: 'rgb(233, 233, 233)'}}>
-                                <NavLink to={'/messages/test2'} className={selectedLink}>h4. Heading</NavLink>
-                            </Typography>
-                        </li>
-                        <li><Typography variant="h6" gutterBottom sx={{color: 'rgb(233, 233, 233)'}}>
-                                <NavLink to={'/messages/test3'} className={selectedLink}>h4. Heading</NavLink>
-                            </Typography></li>
-                        <li><Typography variant="h6" gutterBottom sx={{color: 'rgb(233, 233, 233)'}}>
-                                <NavLink to={'/messages/test4'} className={selectedLink}>h4. Heading</NavLink>
-                            </Typography></li>
-                        <li><Typography variant="h6" gutterBottom sx={{color: 'rgb(233, 233, 233)'}}>
-                                <NavLink to={'/messages/test5'} className={selectedLink}>h4. Heading</NavLink>
-                            </Typography></li> */}
-                            
-                        {dialogs && Object.keys(dialogs).map(user => (
-                            <li key={user}><Typography variant="h6" gutterBottom sx={{color: 'rgb(233, 233, 233)'}}>
-                                    <NavLink to={`${user}`} className={selectedLink}>{user}</NavLink>
+                        {dialogs && dialogs.map(user => (
+                            <li key={user.user}><Typography variant="h6" gutterBottom sx={{color: 'rgb(233, 233, 233)'}}>
+                                    <NavLink to={`${user.login}`} className={selectedLink}>{user.user}</NavLink>
                                 </Typography>
                             </li>
                         ))}
@@ -42,13 +27,35 @@ const Dialogs = ({dialogs}) => {
                 <Grid item xs={8}>
                     <Routes>
                         {/* <Route path={`test2`} element={<DialogElement />}/> */}
-                        {Object.keys(dialogs).map(user => (
-                            <Route key={user} path={`${user}`} element={<DialogElement dialog={dialogs[user]}/>}/>
+                        {dialogs.map(user => (
+                            <Route key={user.login} path={`${user.login}`} element={<DialogElement dialog={user.messages} currentUser={currentUser}/>}/>
                         ))}
                     </Routes>
                 </Grid>
             </Grid>
         </Box>
+        //<Box>
+        //     <Grid container>
+        //         <Grid item xs={4}>
+        //             <ul style={{listStyle: 'none'}}>
+        //                 {dialogs && showForUser(dialogs).map(user => (
+        //                     <li key={user}><Typography variant="h6" gutterBottom sx={{color: 'rgb(233, 233, 233)'}}>
+        //                             <NavLink to={`${user}`} className={selectedLink}>{user}</NavLink>
+        //                         </Typography>
+        //                     </li>
+        //                 ))}
+        //             </ul>
+        //         </Grid>
+        //         <Grid item xs={8}>
+        //             <Routes>
+        //                 {/* <Route path={`test2`} element={<DialogElement />}/> */}
+        //                 {showForUser(dialogs).map(user => (
+        //                     <Route key={user} path={`${user}`} element={<DialogElement dialog={dialogs[user]}/>}/>
+        //                 ))}
+        //             </Routes>
+        //         </Grid>
+        //     </Grid>
+        // </Box>
     )
 }
 

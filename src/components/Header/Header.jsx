@@ -67,13 +67,13 @@ function Header({setMenuActive, isAuth, setModalOpen, currentUser, userPhoto, se
           <Grid item xs={true}>
                   <Toolbar>
                   <IconButton
-                  size="large"
-                  edge="start"
-                  color="inherit"
-                  aria-label="open drawer"
-                  sx={{ mr: 0, pt: "16px", display: { xs: 'block', md: 'none' } }}
-                  onClick={() => setMenuActive(true)}
-                  >
+                      size="large"
+                      edge="start"
+                      color="inherit"
+                      aria-label="open drawer"
+                      sx={{ mr: 0, pt: "16px", display: { xs: 'block', md: 'none' } }}
+                      onClick={() => setMenuActive(true)}
+                    >
                 <MenuIcon />
               </IconButton>
               <Typography variant={window.innerWidth < 400 ? 'body2' : 'h6'} sx={{mr: '8px'}}>MINISOCIALNETWORK</Typography>

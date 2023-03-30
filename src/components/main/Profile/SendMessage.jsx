@@ -19,7 +19,7 @@ console.log(fullName)
                                 <Grid item xs={12} lg={3} justifyContent={'center'} alignItems={'center'}>
                                     <Button variant="contained" 
                                     color='button' sx={{padding: 'auto'}} 
-                                    onClick={() => messageAPI.sendMessage({fullName, message}, addressee, sender)}
+                                    onClick={() => messageAPI.sendMessage({fullName, message, time: new Date().toLocaleString()}, addressee, sender)}
                                     >Отправить сообщение</Button>
                                 </Grid>
                             </Grid>

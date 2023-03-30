@@ -101,10 +101,12 @@ export const messageAPI = {
     //     });
     // }
     sendMessage(message, addressee, sender) {
-        const messagesRef = doc(db, "users", addressee)  
-        return updateDoc(messagesRef, {
-            'messages': arrayUnion({sender: "eee", message: message.message, name: message.fullName})
-        });
+        const userRef = doc(db, `${addressee}Messages`, sender)
+        setDoc(userRef, { messages: arrayUnion({message: message.message, fullName: message.fullName, time: message.time, login: sender}) }, { merge: true })
+    },
+    test() {
+        //const cityRef = doc(db, 'cities', 'user2')
+        //setDoc(cityRef, { messages: arrayUnion({mes: 555}) }, { merge: true })
+        //deleteDoc(doc(db, "test3Messages", 'test3'))
     }
-    
 }

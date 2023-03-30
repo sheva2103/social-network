@@ -1,8 +1,17 @@
 import React from 'react'
+import { messageAPI } from '../../../api/api';
+
+
+function test() {
+    messageAPI.test()
+        
+}
 
 const Photos = () => {
     return ( 
-        <div>photos</div>
+        <div>
+            <button onClick={test}>ttttttttt</button>
+        </div>
      );
 }
  

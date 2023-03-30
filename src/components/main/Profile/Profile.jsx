@@ -15,7 +15,7 @@ const Profile = ({getUserData, currentUser, fullName}) => {
     }, [user])
     
     return ( 
-        <Grid container item justifyContent={'center'} lg={12} sx={{backgroundColor: '#383d47'}}>
+        <Grid container item justifyContent={'center'} lg={12} sx={{backgroundColor: '#383d47', padding: '4px'}}>
             <Grid item width={'100%'}>
                     <CurrentUser user={user}/>
                     {currentUser && (user === currentUser ? <AddNewPost /> : <SendMessage fullName={fullName} addressee={user} sender={currentUser}/>)}
