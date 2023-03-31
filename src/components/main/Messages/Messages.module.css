@@ -19,3 +19,11 @@
     text-align: start;
     border-radius: 0px 16px 16px 0px;
 }
+
+.dialogElement {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+}
+

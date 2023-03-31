@@ -63,44 +63,50 @@ function Header({setMenuActive, isAuth, setModalOpen, currentUser, userPhoto, se
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" color='header'>
-        <Grid container justifyContent={'center'}>
-          <Grid item xs={true}>
-                  <Toolbar>
-                  <IconButton
-                      size="large"
-                      edge="start"
-                      color="inherit"
-                      aria-label="open drawer"
-                      sx={{ mr: 0, pt: "16px", display: { xs: 'block', md: 'none' } }}
-                      onClick={() => setMenuActive(true)}
-                    >
-                <MenuIcon />
-              </IconButton>
-              <Typography variant={window.innerWidth < 400 ? 'body2' : 'h6'} sx={{mr: '8px'}}>MINISOCIALNETWORK</Typography>
-              <NavLink to={searchValue.length > 1 && '/search'}>
-                  <SearchIcon sx={{ml: '10px', cursor: 'pointer'}} onClick={() => {if(searchValue.length > 1) searchUser(searchValue)}}/>
-                </NavLink>
-                <Search onChange={(e) => setSearchValue(e.target.value)} >
-                  <StyledInputBase
-                    placeholder="Search…"
-                    inputProps={{ 'aria-label': 'search' }}
-                  />
-                </Search>
-              </Toolbar>
-              
-          </Grid>
-          <Grid item xs={'auto'} alignSelf={'center'} sx={{mr: '10px'}}>
-          
-          {isAuth ?
-            <Grid container>
-              <Typography variant="h6" gutterBottom sx={{margin: '0 8px 0 8px'}}>{currentUser}</Typography>
-              <Avatar alt="user img" sx={{cursor: 'pointer'}} src={userPhoto || i} onClick={() => setModalOpen({isOpen: true, type: CHANGE_PERSONAL_DATA})}/> 
-            </Grid>
-            : 
-            <Button variant="contained" color="exitButton" onClick={ ()=> setModalOpen({isOpen: true, type: MODAL_AUTH}) }>Войти</Button>}
-        
-          </Grid>
+        <Grid container alignItems={'center'}>
+                <Grid item xs={'auto'}>
+                        <IconButton
+                                  size="large"
+                                  edge="start"
+                                  color="inherit"
+                                  aria-label="open drawer"
+                                  sx={{ ml: '16px', pt: "16px", display: { xs: 'block', md: 'none' } }}
+                                  onClick={() => setMenuActive(true)}
+                                >
+                              <MenuIcon />
+                            </IconButton>
+                </Grid>
+                <Grid item xs={true}>
+                      <Grid container justifyContent={'end'}>
+                          <Grid item xs={12} sm={true}>
+                                  <Toolbar>
+                                      <Typography variant={window.innerWidth < 400 ? 'body2' : 'h6'} sx={{mr: '8px'}}>MiniSocNet</Typography>
+                                      <NavLink to={searchValue.length > 1 && '/search'}>
+                                          <SearchIcon sx={{ml: '10px', cursor: 'pointer'}} onClick={() => {if(searchValue.length > 1) searchUser(searchValue)}}/>
+                                        </NavLink>
+                                        <Search onChange={(e) => setSearchValue(e.target.value)} >
+                                          <StyledInputBase
+                                            placeholder="Search…"
+                                            inputProps={{ 'aria-label': 'search' }}
+                                          />
+                                        </Search>
+                                  </Toolbar>
+                          </Grid>
+                          <Grid item xs={12} sm={'auto'} alignSelf={'center'} sx={{mr: '10px'}}>
+                                
+                                {isAuth ?
+                                  <Grid container sx={{padding: '4px', justifyContent: 'center'}}>
+                                    <Typography variant="h6" gutterBottom sx={{margin: '0 8px 0 8px'}}>{currentUser}</Typography>
+                                    <Avatar alt="user img" sx={{cursor: 'pointer'}} src={userPhoto || i} onClick={() => setModalOpen({isOpen: true, type: CHANGE_PERSONAL_DATA})}/> 
+                                  </Grid>
+                                  : 
+                                  <Button variant="contained" color="exitButton" onClick={ ()=> setModalOpen({isOpen: true, type: MODAL_AUTH}) }>Войти</Button>}
+                              
+                          </Grid>
+                    </Grid>
+                </Grid>
         </Grid>
+
       </AppBar>
       {/* {modalOpen && <BasicModal 
                       typeModal={MODAL_AUTH} 

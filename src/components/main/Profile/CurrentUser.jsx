@@ -19,7 +19,6 @@ const Item = styled(Paper)(({ theme }) => ({
 
 
 const CurrentUser = ({userInfo, user, currentUser, friends, addFriend, deleteFriend}) => {
-
     const isFriend = (friends) => {
         if(friends === null) return
         return friends.some(friend => friend.name === user)
@@ -30,8 +29,12 @@ const CurrentUser = ({userInfo, user, currentUser, friends, addFriend, deleteFri
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2} sx={{marginTop: '0px', paddingBottom: '8px', paddingLeft: '8px'}}>
                 <Grid item xs={12} sm={'auto'}>
+                    {userInfo.linkUserPhoto !== "" ? 
                         <img src={userInfo.linkUserPhoto} alt="123" style={{width: '200px'}}/>
-                                        
+                        :
+                        <img src={'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'} alt="123" style={{width: '200px'}}/>}
+                        
+
                 </Grid>
                 <Grid item container xs={12} sm={'auto'}>
                         <Grid item xs={12} >

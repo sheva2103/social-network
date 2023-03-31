@@ -7,8 +7,8 @@ import style from './Messages.module.css'
 import DialogElement from './DialogElement';
 
 
-const Dialogs = ({dialogs, currentUser}) => {
-    console.log(dialogs)
+const Dialogs = ({dialogs, currentUser, currentUserFullName}) => {
+
     const selectedLink = ({isActive}) => isActive ? style.activeLink : ''
     return ( 
 
@@ -26,36 +26,17 @@ const Dialogs = ({dialogs, currentUser}) => {
                 </Grid>
                 <Grid item xs={8}>
                     <Routes>
-                        {/* <Route path={`test2`} element={<DialogElement />}/> */}
                         {dialogs.map(user => (
-                            <Route key={user.login} path={`${user.login}`} element={<DialogElement dialog={user.messages} currentUser={currentUser}/>}/>
-                        ))}
+                            <Route key={user.login} path={`${user.login}`} element={<DialogElement 
+                                                                                        dialog={user.messages} 
+                                                                                        currentUser={currentUser}
+                                                                                        fullName={currentUserFullName}
+                                                                                        addressee={user.login}/>}/>
+                            ))}
                     </Routes>
                 </Grid>
             </Grid>
         </Box>
-        //<Box>
-        //     <Grid container>
-        //         <Grid item xs={4}>
-        //             <ul style={{listStyle: 'none'}}>
-        //                 {dialogs && showForUser(dialogs).map(user => (
-        //                     <li key={user}><Typography variant="h6" gutterBottom sx={{color: 'rgb(233, 233, 233)'}}>
-        //                             <NavLink to={`${user}`} className={selectedLink}>{user}</NavLink>
-        //                         </Typography>
-        //                     </li>
-        //                 ))}
-        //             </ul>
-        //         </Grid>
-        //         <Grid item xs={8}>
-        //             <Routes>
-        //                 {/* <Route path={`test2`} element={<DialogElement />}/> */}
-        //                 {showForUser(dialogs).map(user => (
-        //                     <Route key={user} path={`${user}`} element={<DialogElement dialog={dialogs[user]}/>}/>
-        //                 ))}
-        //             </Routes>
-        //         </Grid>
-        //     </Grid>
-        // </Box>
     )
 }
 

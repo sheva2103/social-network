@@ -7,7 +7,7 @@ import { getMessages } from './../../../redux/messageReducer';
 import Dialogs from './Dialogs';
 import { useParams } from 'react-router-dom';
 
-const Messages = ({getMessages, dialogs, currentUser}) => {
+const Messages = ({getMessages, dialogs, currentUser, currentUserFullName}) => {
         //console.log(dialogs)
     
     useEffect(() => {
@@ -15,7 +15,7 @@ const Messages = ({getMessages, dialogs, currentUser}) => {
         //     console.log("Current data: ", doc.data().messages);
         //     getMessages(doc.data().messages)
         // });
-        const q = query(collection(db, "test3Messages"));
+        const q = query(collection(db, `${currentUser}Messages`));
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
         const messages = [];
             querySnapshot.forEach((doc) => {
@@ -28,13 +28,14 @@ const Messages = ({getMessages, dialogs, currentUser}) => {
     
     return ( 
         <div>
-            {dialogs && <Dialogs dialogs={dialogs} currentUser={currentUser}/>}
+            {dialogs && <Dialogs dialogs={dialogs} currentUser={currentUser} currentUserFullName={currentUserFullName}/>}
         </div>
     );
 }
 
 const mapStateToProps = (state) => ({
     dialogs:state.messages.messages,
-    currentUser: state.auth.currentUser
+    currentUser: state.auth.currentUser,
+    currentUserFullName: state.auth.currentUserData?.userInfo.name
 })
 export default connect(mapStateToProps, {getMessages})(Messages)
