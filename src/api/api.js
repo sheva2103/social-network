@@ -1,6 +1,6 @@
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { collection, addDoc, getDocs, setDoc, doc, getDoc, updateDoc, arrayUnion, arrayRemove, deleteDoc, query, where, onSnapshot } from "firebase/firestore";
+import { collection, addDoc, getDocs, setDoc, doc, getDoc, updateDoc, arrayUnion, arrayRemove, deleteDoc, query, where, onSnapshot, orderBy } from "firebase/firestore";
 import { db } from "../firebase";
 
 
@@ -111,6 +111,15 @@ export const messageAPI = {
     test() {
         //const cityRef = doc(db, 'cities', 'user2')
         //setDoc(cityRef, { messages: arrayUnion({mes: 555}) }, { merge: true })
-        //deleteDoc(doc(db, "test3Messages", 'slava'))
+        //deleteDoc(doc(db, "test3Messages", 'valera'))
+    }
+}
+
+export const photoAPI = {
+
+    addPhoto(photo, login) {
+        const loginRef = doc(db, "users", login)
+        updateDoc(loginRef, {
+            photo: arrayUnion(photo)})
     }
 }

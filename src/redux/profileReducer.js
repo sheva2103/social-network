@@ -23,11 +23,11 @@ const initialState = {
 }
 
 const profileReducer = (state = initialState, action) => {
-    //debugger
+
     switch(action.type) {
 
         case GET_USER_DATA:
-            return {...state, userInfo: action.data.userInfo, posts: action.data.posts, friends: action.data.friends, photos: action.data.photos, music: action.data.music}
+            return {...state, userInfo: action.data.userInfo, posts: action.data.posts, friends: action.data.friends, photos: action.data.photo, music: action.data.music}
         case CHANGE_USER_DATA:
             return {...state}
         case ADD_NEW_POST:

@@ -6,25 +6,30 @@ import LoginFormContainer from './ModalLogin';
 //import { CHANGE_PERSONAL_DATA, MODAL_AUTH } from '../Header/Header';
 import Preloader from '../common/Preloader';
 import ChangeUserData from './ChangeUserData';
+import ShowImage from './ShowImage';
 
 export const MODAL_AUTH = 'MODAL_AUTH'
 export const CHANGE_PERSONAL_DATA = 'CHANGE_PERSONAL_DATA'
+export const SHOW_IMAGE = 'SHOW_IMAGE'
 
 //const MODAL_AUTH = 'MODAL_AUTH'
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: {xs: 300, sm: 400},
-  bgcolor: '#383d47',
-  borderRadius: '8px',
-  boxShadow: 24,
-  p: 4,
-};
 
-export default function BasicModal({modalOpen, setModalOpen, typeModal, isFetching }) {
+
+export default function BasicModal({modalOpen, setModalOpen, isFetching }) {
+
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: {xs: 300, sm: 400, md: modalOpen.type === SHOW_IMAGE ? 'auto' : 400},
+    bgcolor: '#383d47',
+    borderRadius: '8px',
+    boxShadow: 24,
+    p: 2,
+    outline: 'none',
+  };
 
   return (
 
@@ -38,6 +43,7 @@ export default function BasicModal({modalOpen, setModalOpen, typeModal, isFetchi
         <Box sx={style}>
           {modalOpen.type === MODAL_AUTH && <LoginFormContainer setModalOpen={setModalOpen} />}
           {modalOpen.type === CHANGE_PERSONAL_DATA && <ChangeUserData setModalOpen={setModalOpen} />}
+          {modalOpen.type === SHOW_IMAGE && <ShowImage linkImages={modalOpen.linkImage}/>}
           {<Preloader isFetching={isFetching}/>}
           
         </Box>

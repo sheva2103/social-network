@@ -21,7 +21,8 @@ const Messages = ({getMessages, dialogs, currentUser, currentUserFullName}) => {
             querySnapshot.forEach((doc) => {
             messages.push(doc.data());
     });
-    console.log("Сообщения: ", messages);
+    //console.log("Сообщения: ", messages);
+    //console.log(Object.keys(messages))
     getMessages(messages)
 });
     },[])

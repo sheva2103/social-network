@@ -9,7 +9,7 @@ import Photos from './Photos/Photos';
 import SearchPage from './Search/SearchPage';
 import { connect } from 'react-redux';
 
-const Main = ({menuActive, setMenuActive, setAutoLogin, currentUser, isAuth}) => {
+const Main = ({menuActive, setMenuActive, setAutoLogin, currentUser, isAuth, setModalOpen}) => {
 
     return(
         <main className={style.main} onClick={() => setMenuActive(false)}> 
@@ -22,7 +22,7 @@ const Main = ({menuActive, setMenuActive, setAutoLogin, currentUser, isAuth}) =>
                     <Route path={`/profile/:user`} element={<Profile />}/>
                     <Route path='/friends/:user' element={<Friends />} />
                     <Route path='/messages/:currentuser/*' element={<Messages />} />
-                    <Route path='/photos' element={<Photos />} />
+                    <Route path='/photos/:user' element={<Photos setModalOpen={setModalOpen}/>} />
                     <Route path='/search' element={<SearchPage />} />
                 </Routes>
             </div>

@@ -6,6 +6,7 @@ let initialState = {
 const showMessagesUser = (arrMessUser) => {
     let messages = []
     arrMessUser.forEach(item => {
+        //debugger
         let user = item.messages[0].fullName
         let login = item.messages[0].login
         let messagesArr = []

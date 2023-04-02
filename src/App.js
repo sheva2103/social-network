@@ -29,7 +29,7 @@ const App = ({initialized, isAuth, initializedApp, isFetching}) => {
     <BrowserRouter>
       <ThemeProvider theme={theme}>
         <Header menuActive={menuActive} setMenuActive={setMenuActive} setModalOpen={setModalOpen} modalOpen={modalOpen} />
-        <Main menuActive={menuActive} setMenuActive={setMenuActive} setAutoLogin={setAutoLogin} />
+        <Main menuActive={menuActive} setMenuActive={setMenuActive} setAutoLogin={setAutoLogin} setModalOpen={setModalOpen}/>
         <BasicModal modalOpen={modalOpen} setModalOpen={setModalOpen} isFetching={isFetching} />
       </ThemeProvider>
     </BrowserRouter>
