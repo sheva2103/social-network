@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { getUserData } from './../../../redux/profileReducer';
 import SendMessage from './SendMessage';
 
-const Profile = ({getUserData, currentUser, fullName}) => {
+const Profile = ({getUserData, currentUser, fullName, fullNameOwnerProfile}) => {
     let {user} = useParams()
     useEffect(() => {
         getUserData(user)
@@ -19,7 +19,11 @@ const Profile = ({getUserData, currentUser, fullName}) => {
         <Grid container justifyContent={'center'} sx={{backgroundColor: '#383d47', padding: '4px'}}>
             <Grid item width={'100%'}>
                     <CurrentUser user={user}/>
-                    {currentUser && (user === currentUser ? <AddNewPost /> : <SendMessage fullName={fullName} addressee={user} sender={currentUser}/>)}
+                    {currentUser && (user === currentUser ? <AddNewPost /> : <SendMessage fullName={fullName} 
+                                                                                            addressee={user} 
+                                                                                            sender={currentUser}
+                                                                                            fullNameOwnerProfile={fullNameOwnerProfile}
+                                                                                            fromProfile/>)}
                     <PostsContainer />
             </Grid>
         </Grid>
@@ -29,7 +33,8 @@ const Profile = ({getUserData, currentUser, fullName}) => {
 
 const mapStateToProps = (state) => ({
     currentUser: state.auth.currentUser,
-    fullName: state.auth.currentUserData?.userInfo.name
+    fullName: state.auth.currentUserData?.userInfo.name,
+    fullNameOwnerProfile: state.profile.userInfo.name
 })
 
 export default connect(mapStateToProps, {getUserData})(Profile)

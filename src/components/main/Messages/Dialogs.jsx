@@ -8,7 +8,7 @@ import DialogElement from './DialogElement';
 
 
 const Dialogs = ({dialogs, currentUser, currentUserFullName}) => {
-
+    
     const selectedLink = ({isActive}) => isActive ? style.activeLink : ''
     return ( 
 
@@ -17,8 +17,8 @@ const Dialogs = ({dialogs, currentUser, currentUserFullName}) => {
                 <Grid item xs={4}>
                     <ul style={{listStyle: 'none'}}>
                         {dialogs && dialogs.map(user => (
-                            <li key={user.user}><Typography variant="h6" gutterBottom sx={{color: 'rgb(233, 233, 233)'}}>
-                                    <NavLink to={`${user.login}`} className={selectedLink}>{user.user}</NavLink>
+                            <li key={user.login}><Typography variant="h6" gutterBottom sx={{color: 'rgb(233, 233, 233)'}}>
+                                    <NavLink to={`${user.login}`} className={selectedLink}>{user.fullNameAddressee}</NavLink>
                                 </Typography>
                             </li>
                         ))}
@@ -27,8 +27,8 @@ const Dialogs = ({dialogs, currentUser, currentUserFullName}) => {
                 <Grid item xs={8}>
                     <Routes>
                         {dialogs.map(user => (
-                            <Route key={user.login} path={`${user.login}`} element={<DialogElement 
-                                                                                        dialog={user.messages} 
+                            <Route key={user.login} path={`/:companion`} element={<DialogElement 
+                                                                                        //dialog={user.messages} 
                                                                                         currentUser={currentUser}
                                                                                         fullName={currentUserFullName}
                                                                                         addressee={user.login}/>}/>

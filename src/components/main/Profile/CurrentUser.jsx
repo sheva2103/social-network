@@ -5,6 +5,8 @@ import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import { connect } from 'react-redux';
 import { addFriend, deleteFriend } from '../../../redux/authReducer'
+import style from './Profile.module.css'
+import { NavLink } from 'react-router-dom';
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -18,7 +20,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 
 
-const CurrentUser = ({userInfo, user, currentUser, friends, addFriend, deleteFriend}) => {
+const CurrentUser = ({userInfo, user, currentUser, friends, addFriend, deleteFriend, quantityPhotos}) => {
     const isFriend = (friends) => {
         if(friends === null) return
         return friends.some(friend => friend.name === user)
@@ -47,6 +49,11 @@ const CurrentUser = ({userInfo, user, currentUser, friends, addFriend, deleteFri
                             <Item sx={{margin: 0}}>Дата рождения: {userInfo?.DateOfBirth}</Item>
                         </Grid>
                 </Grid>
+                <Grid item xs={'auto'}>
+                    <NavLink to={`/photos/${user}`}>
+                        <Item sx={{borderRadius: '16px', cursor: 'pointer'}}>фото : {quantityPhotos.length}</Item>
+                    </NavLink>
+                </Grid>
             </Grid>
             {currentUser && currentUser !== user &&
                     <Button variant="contained" 
@@ -65,7 +72,8 @@ const CurrentUser = ({userInfo, user, currentUser, friends, addFriend, deleteFri
 const mapStateToProps = (state) => ({
     userInfo: state.profile.userInfo,
     currentUser: state.auth.currentUser,
-    friends: state.auth.currentUserData?.friends
+    friends: state.auth.currentUserData?.friends,
+    quantityPhotos: state.profile.photos
 })
 
 export default connect(mapStateToProps, {addFriend, deleteFriend})(CurrentUser)

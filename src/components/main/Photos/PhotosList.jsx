@@ -4,7 +4,6 @@ import React from 'react';
 import { SHOW_IMAGE } from '../../modal/Modal';
 //import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 //import FavoriteIcon from '@mui/icons-material/Favorite';
-import { photoAPI } from '../../../api/api';
 
 const PhotoList = ({setModalOpen, photos, currentUser}) => {
     
@@ -12,7 +11,6 @@ const PhotoList = ({setModalOpen, photos, currentUser}) => {
 
     return (
         <Box sx={{padding: '8px'}}>
-            <button onClick={() => photoAPI.addRemoveLike()}>7777777777</button>
             <Grid spacing={1} container justifyContent={'center'}>
                 {photos.map((image, index) => (
                     <Grid key={index} item xs={'auto'} md={'auto'} >

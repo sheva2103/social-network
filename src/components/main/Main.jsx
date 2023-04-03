@@ -21,7 +21,7 @@ const Main = ({menuActive, setMenuActive, setAutoLogin, currentUser, isAuth, set
                 <Routes>
                     <Route path={`/profile/:user`} element={<Profile />}/>
                     <Route path='/friends/:user' element={<Friends />} />
-                    <Route path='/messages/:currentuser/*' element={<Messages />} />
+                    <Route path='/messages/:user/*' element={<Messages />} />
                     <Route path='/photos/:user' element={<Photos setModalOpen={setModalOpen}/>} />
                     <Route path='/search' element={<SearchPage />} />
                 </Routes>

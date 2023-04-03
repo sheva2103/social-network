@@ -3,8 +3,7 @@ import { Box, Button, Grid, TextField } from '@mui/material';
 import { messageAPI } from '../../../api/api';
 import SendIcon from '@mui/icons-material/Send';
 
-const SendMessage = ({fullName, addressee, sender}) => { 
-
+const SendMessage = ({fullName, addressee, sender, fullNameOwnerProfile, fromProfile}) => {
     const [message, setMessage] = useState('')
     return (  
         <Box sx={{padding: '8px'}}>
@@ -21,7 +20,7 @@ const SendMessage = ({fullName, addressee, sender}) => {
                                     <Button variant="contained" 
                                     color='button' sx={{padding: '8px', width: '100%'}} 
                                     onClick={() => {
-                                        messageAPI.sendMessage({fullName, message, time: new Date().toLocaleString()}, addressee, sender)
+                                        messageAPI.sendMessage({fullName, message, time: new Date().toLocaleString()}, addressee, sender, fullNameOwnerProfile, fromProfile)
                                         setMessage('')
                                     }}
                                     >

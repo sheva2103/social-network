@@ -32,7 +32,8 @@ export const profileAPI = {
             friends: [],
             music: [],
             photo: [],
-            messages: []
+            messages: [],
+            dialogs: []
         }
         return setDoc(doc(db, "users", login), user);
     },
@@ -100,18 +101,53 @@ export const messageAPI = {
     //         'messages.test': arrayUnion({message: message.message, name: message.fullName})
     //     });
     // }
-    sendMessage(message, addressee, sender) {
-        const userRef1 = doc(db, `${addressee}Messages`, sender)
-        setDoc(userRef1, { messages: arrayUnion({message: message.message, fullName: message.fullName, time: message.time, login: sender}) }, { merge: true })
+    sendMessage(message, addressee, sender, fullNameAddressee, fromProfile) {
+        
+        
+            if(true) {
+                const userRef1 = doc(db, `${addressee}Messages`, sender)
+                setDoc(userRef1, { dialogs: arrayUnion({message: message.message, 
+                    fullName: message.fullName, 
+                    time: message.time, login: sender}),
+                    fullName: message.fullName,
+                    login: sender
+                }, { merge: true })
+            }
+            if(fromProfile) {
+                const profileRef1 = doc(db, 'users', addressee)
+                updateDoc(profileRef1, {dialogs: arrayUnion({fullNameAddressee: message.fullName, login: sender})})
+            }
+            
+            
         // crap code
-        const userRef2 = doc(db, `${sender}Messages`, addressee)
-        setDoc(userRef2, { messages: arrayUnion({message: message.message, fullName: message.fullName, time: message.time, login: sender}) }, { merge: true })
+        
+            if(true) {
+                const userRef2 = doc(db, `${sender}Messages`, addressee)
+                setDoc(userRef2, { dialogs: arrayUnion({message: message.message, 
+                    fullName: message.fullName, 
+                    time: message.time, login: sender}), 
+                    fullName: message.fullName,
+                    login: addressee}, { merge: true })
+            }
+            if(fromProfile) {
+                const profileRef2 = doc(db, 'users', sender)
+                updateDoc(profileRef2, {dialogs: arrayUnion({fullNameAddressee, login: addressee})})
+            }
+            
 
     },
     test() {
         //const cityRef = doc(db, 'cities', 'user2')
         //setDoc(cityRef, { messages: arrayUnion({mes: 555}) }, { merge: true })
-        //deleteDoc(doc(db, "test3Messages", 'valera'))
+        //deleteDoc(doc(db, "sanyaMessages", 'test3'))
+    },
+    async getMessage(currentUser, addressee) {
+        const w = query(collection(db, `${currentUser}Messages`), where("login", "==", addressee));
+            const querySnapshot = await getDocs(w);
+                querySnapshot.forEach((doc) => {
+                // doc.data() is never undefined for query doc snapshots
+                console.log(doc.id, " => ", doc.data());
+                });
     }
 }
 
@@ -121,5 +157,6 @@ export const photoAPI = {
         const loginRef = doc(db, "users", login)
         updateDoc(loginRef, {
             photo: arrayUnion(photo)})
+        
     }
 }
