@@ -14,20 +14,20 @@ import { setMessages } from '../../../redux/messageReducer';
 
 const DialogElement = ({dialog, currentUser, fullName, addressee, setMessages, messagesList}) => {
     const {user, companion} = useParams()
-    console.log(user, companion)
+    //console.log(user, companion)
     useEffect(() => {
         //messageAPI.getMessage(currentUser, addressee)
-        const q = query(collection(db, `${user}Messages`), where("login", "==", addressee));
+        const q = query(collection(db, `${user}Messages`), where("login", "==", companion));
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
         const messages = [];
             querySnapshot.forEach((doc) => {
-                console.log(doc.data().dialogs)
+                //console.log(doc.data().dialogs)
                 setMessages(doc.data().dialogs)
             //messages.push(doc.data());
         });
         });
-    },[])
-
+    },[companion])
+    console.log(fullName, addressee)
 
     let elementRef = useRef(null)
     useEffect(() => {
@@ -43,7 +43,11 @@ const DialogElement = ({dialog, currentUser, fullName, addressee, setMessages, m
                     <Grid item>
                         {messagesList.map(message => (
                         <Grid item key={message.time} sx={currentUser !== message.login ? {textAlign: 'end'} : {textAlign: 'start'}}>
-                                <NavLink to={`/profile/${message.login}`}><Typography variant="caption" display="block" sx={{color: 'rgb(3, 149, 216)'}}>{message.fullName}</Typography></NavLink>
+                                <NavLink to={`/profile/${message.login}`}><Typography variant="caption" 
+                                                                                        display="block" 
+                                                                                        sx={{color: 'rgb(3, 149, 216)', fontWeight: 600}}>
+                                                                                            {message.fullName}</Typography>
+                                </NavLink>
                                 <div className={currentUser !== message.login ? style.dialogMessage : `${style.dialogMessage} ${style.isOwner}`}>
                                     <Typography variant="body1" sx={{color: 'rgb(233, 233, 233)'}}>{message.message}</Typography>
                                 </div>
@@ -51,7 +55,7 @@ const DialogElement = ({dialog, currentUser, fullName, addressee, setMessages, m
                         </Grid>
                     ))}
                     </Grid>
-                        <Grid item><SendMessage fullName={fullName} addressee={addressee} sender={currentUser}/></Grid>
+                        <Grid item><SendMessage fullName={fullName} addressee={companion} sender={currentUser}/></Grid>
                 </Grid>
             </div>
         </Box>

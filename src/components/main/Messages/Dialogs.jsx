@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/system';
 import { Grid } from '@mui/material';
@@ -8,13 +8,13 @@ import DialogElement from './DialogElement';
 
 
 const Dialogs = ({dialogs, currentUser, currentUserFullName}) => {
-    
+    const [dialogOpen, setDialogOpen] = useState(false)
     const selectedLink = ({isActive}) => isActive ? style.activeLink : ''
     return ( 
 
         <Box>
             <Grid container>
-                <Grid item xs={4}>
+                <Grid item xs={4} sx={{}}>
                     <ul style={{listStyle: 'none'}}>
                         {dialogs && dialogs.map(user => (
                             <li key={user.login}><Typography variant="h6" gutterBottom sx={{color: 'rgb(233, 233, 233)'}}>

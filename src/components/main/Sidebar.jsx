@@ -25,7 +25,6 @@ const Sidebar = ({setMenuActive, setAutoLogin, logout, isAuth, currentUser}) => 
                 <li><span><NavLink to={`/photos/${currentUser}`} className={selectedLink} onClick={() => setMenuActive(false)}>Фотографии</NavLink></span></li>
                 {isAuth && <li><span style={{cursor: 'pointer'}} onClick={() => logout(setAutoLogin)}>Выйти</span></li>}
             </ul>
-            <button onClick={messageAPI.test()}>del</button>
         </nav>
     )
 }

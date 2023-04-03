@@ -95,7 +95,7 @@ function Header({setMenuActive, isAuth, setModalOpen, currentUser, userPhoto, se
                           <Grid item xs={12} sm={'auto'} alignSelf={'center'} sx={{mr: '10px'}}>
                                 
                                 {isAuth ?
-                                  <Grid container sx={{padding: '4px', justifyContent: 'center'}}>
+                                  <Grid container sx={{padding: '4px', justifyContent: 'flex-end'}}>
                                     <Typography variant="h6" gutterBottom sx={{margin: '0 8px 0 8px'}}>{currentUser}</Typography>
                                     <Avatar alt="user img" sx={{cursor: 'pointer'}} src={userPhoto || i} onClick={() => setModalOpen({isOpen: true, type: CHANGE_PERSONAL_DATA})}/> 
                                   </Grid>

@@ -20,6 +20,7 @@ const SendMessage = ({fullName, addressee, sender, fullNameOwnerProfile, fromPro
                                     <Button variant="contained" 
                                     color='button' sx={{padding: '8px', width: '100%'}} 
                                     onClick={() => {
+                                        if(message.trim() <= 0) return
                                         messageAPI.sendMessage({fullName, message, time: new Date().toLocaleString()}, addressee, sender, fullNameOwnerProfile, fromProfile)
                                         setMessage('')
                                     }}
