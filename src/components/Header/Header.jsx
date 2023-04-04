@@ -10,14 +10,10 @@ import SearchIcon from '@mui/icons-material/Search';
 import { Button, Grid, Typography } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import i from '../../logo.svg'
-import { registrationNewUser, signIn } from '../../redux/authReducer';
 import { connect } from 'react-redux';
-import BasicModal, { CHANGE_PERSONAL_DATA, MODAL_AUTH } from './../modal/Modal';
+import { CHANGE_PERSONAL_DATA, MODAL_AUTH } from './../modal/Modal';
 import { searchUser } from './../../redux/searchReducer';
 import { NavLink } from 'react-router-dom';
-
-// export const MODAL_AUTH = 'MODAL_AUTH'
-// export const CHANGE_PERSONAL_DATA = 'CHANGE_PERSONAL_DATA'
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -64,23 +60,27 @@ function Header({setMenuActive, isAuth, setModalOpen, currentUser, userPhoto, se
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" color='header'>
         <Grid container alignItems={'center'}>
-                <Grid item xs={'auto'}>
-                        <IconButton
-                                  size="large"
-                                  edge="start"
-                                  color="inherit"
-                                  aria-label="open drawer"
-                                  sx={{ ml: '16px', pt: "16px", display: { xs: 'block', md: 'none' } }}
-                                  onClick={() => setMenuActive(true)}
-                                >
-                              <MenuIcon />
-                            </IconButton>
-                </Grid>
+                {isAuth && 
+                                <Grid item xs={'auto'}>
+                                <IconButton
+                                          size="large"
+                                          edge="start"
+                                          color="inherit"
+                                          aria-label="open drawer"
+                                          sx={{ ml: '16px', pt: "16px", display: { xs: 'block', md: 'none' } }}
+                                          onClick={() => setMenuActive(true)}
+                                        >
+                                      <MenuIcon />
+                                    </IconButton>
+                        </Grid>
+                }
                 <Grid item xs={true}>
                       <Grid container justifyContent={'end'}>
                           <Grid item xs={12} sm={true}>
                                   <Toolbar>
-                                      <Typography variant={window.innerWidth < 400 ? 'body2' : 'h6'} sx={{mr: '8px'}}>MiniSocNet</Typography>
+                                      <NavLink to={'/'}>
+                                        <Typography variant={window.innerWidth < 400 ? 'body2' : 'h6'} sx={{mr: '8px'}}>MiniSocNet</Typography>
+                                      </NavLink>
                                       <NavLink to={searchValue.length > 1 && '/search'}>
                                           <SearchIcon sx={{ml: '10px', cursor: 'pointer'}} onClick={() => {if(searchValue.length > 1) searchUser(searchValue)}}/>
                                         </NavLink>
@@ -92,7 +92,7 @@ function Header({setMenuActive, isAuth, setModalOpen, currentUser, userPhoto, se
                                         </Search>
                                   </Toolbar>
                           </Grid>
-                          <Grid item xs={12} sm={'auto'} alignSelf={'center'} sx={{mr: '10px'}}>
+                          <Grid item xs={12} sm={'auto'} alignSelf={'center'} sx={{mr: '10px', textAlign: 'end', paddingRight: '8px', mb: '4px'}}>
                                 
                                 {isAuth ?
                                   <Grid container sx={{padding: '4px', justifyContent: 'flex-end'}}>

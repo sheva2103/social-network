@@ -1,0 +1,25 @@
+
+.signInBox {
+    position: relative;
+}
+    .signInBoxButton {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(51, 51, 51, 0.432);
+        transition: all 1s;
+    }
+    .signInBoxButton:hover {
+        background-color: rgba(51, 51, 51, 0.082);
+    }
+    .backImage {
+        width: 100%;
+        height: 500px;
+        object-fit: cover;
+    }
+    

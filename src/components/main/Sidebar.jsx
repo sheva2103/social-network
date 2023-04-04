@@ -19,7 +19,7 @@ const Sidebar = ({setMenuActive, setAutoLogin, logout, isAuth, currentUser}) => 
                     <ArrowBackIcon sx={{display: {xs: 'block', md: 'none'}}}/>
                 </div>
             <ul>
-                <li><span><NavLink to={`/profile/${currentUser}`} className={selectedLink} onClick={() => setMenuActive(false)}>Главная</NavLink></span></li>
+                <li><span><NavLink to={`/profile/${currentUser}`} className={selectedLink} onClick={() => setMenuActive(false)}>Профиль</NavLink></span></li>
                 <li><span><NavLink to={`/friends/${currentUser}`} className={selectedLink} onClick={() => setMenuActive(false)}>Друзья</NavLink></span></li>
                 <li><span><NavLink to={`/messages/${currentUser}`} className={selectedLink} onClick={() => setMenuActive(false)}>Сообщения</NavLink></span></li>
                 <li><span><NavLink to={`/photos/${currentUser}`} className={selectedLink} onClick={() => setMenuActive(false)}>Фотографии</NavLink></span></li>

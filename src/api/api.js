@@ -1,6 +1,6 @@
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { collection, addDoc, getDocs, setDoc, doc, getDoc, updateDoc, arrayUnion, arrayRemove, deleteDoc, query, where, onSnapshot, orderBy } from "firebase/firestore";
+import { collection, getDocs, setDoc, doc, getDoc, updateDoc, arrayUnion, arrayRemove, query, where } from "firebase/firestore";
 import { db } from "../firebase";
 
 
@@ -45,19 +45,12 @@ export const profileAPI = {
     },
     changeUserInfo(login, data) {
         const frankDocRef = doc(db, "users", login)
-        // ///////////////
-        // deleteDoc(doc(db, "users", 'login')) //!!!!! удаление
-
-        // /////////////
         return updateDoc(frankDocRef, {
             //"favorites.color": "Red"  !!!!! обращение ко вложеным полям
             userInfo: data
         });
         
     },
-    // changeUserData(data) {
-    //     return setDoc(doc(db, "users", "qwerty"), data);
-    // },
     addNewPost(newPost, login) {
         const loginRef = doc(db, "users", login)
         return updateDoc(loginRef, {
@@ -85,7 +78,7 @@ export const searchAPI = {
             let searchResult = []
                 querySnapshot.forEach((doc) => {
                 //console.log(doc.id, " => ", doc.data());
-                if(doc.data().userInfo.name.includes(searchUser)) {
+                if(doc.data().userInfo.name.toLowerCase().includes(searchUser.toLowerCase())) {
                     searchResult.push({...doc.data(), id: doc.id})
                 }
                 });
@@ -95,12 +88,6 @@ export const searchAPI = {
 
 export const messageAPI = {
 
-    // sendMessage(message, addressee, sender) {
-    //     const messagesRef = doc(db, "users", addressee)  
-    //     return updateDoc(messagesRef, {
-    //         'messages.test': arrayUnion({message: message.message, name: message.fullName})
-    //     });
-    // }
     sendMessage(message, addressee, sender, fullNameAddressee, fromProfile) {
         
         
@@ -137,15 +124,12 @@ export const messageAPI = {
 
     },
     test() {
-        //const cityRef = doc(db, 'cities', 'user2')
-        //setDoc(cityRef, { messages: arrayUnion({mes: 555}) }, { merge: true })
         //deleteDoc(doc(db, "sanyaMessages", 'test3'))
     },
     async getMessage(currentUser, addressee) {
         const w = query(collection(db, `${currentUser}Messages`), where("login", "==", addressee));
             const querySnapshot = await getDocs(w);
                 querySnapshot.forEach((doc) => {
-                // doc.data() is never undefined for query doc snapshots
                 console.log(doc.id, " => ", doc.data());
                 });
     }

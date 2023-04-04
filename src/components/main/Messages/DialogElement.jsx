@@ -6,28 +6,23 @@ import Typography from '@mui/material/Typography';
 import { NavLink, useParams } from 'react-router-dom';
 import SendMessage from '../Profile/SendMessage';
 import { db } from '../../../firebase';
-import { collection, getDocs, onSnapshot, query, where } from 'firebase/firestore';
-import { messageAPI } from '../../../api/api';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { connect } from 'react-redux';
 import { setMessages } from '../../../redux/messageReducer';
 
 
-const DialogElement = ({dialog, currentUser, fullName, addressee, setMessages, messagesList}) => {
+const DialogElement = ({ currentUser, fullName, setMessages, messagesList}) => {
     const {user, companion} = useParams()
-    //console.log(user, companion)
     useEffect(() => {
-        //messageAPI.getMessage(currentUser, addressee)
         const q = query(collection(db, `${user}Messages`), where("login", "==", companion));
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
         const messages = [];
             querySnapshot.forEach((doc) => {
                 //console.log(doc.data().dialogs)
                 setMessages(doc.data().dialogs)
-            //messages.push(doc.data());
         });
         });
     },[companion])
-    console.log(fullName, addressee)
 
     let elementRef = useRef(null)
     useEffect(() => {
@@ -46,7 +41,8 @@ const DialogElement = ({dialog, currentUser, fullName, addressee, setMessages, m
                                 <NavLink to={`/profile/${message.login}`}><Typography variant="caption" 
                                                                                         display="block" 
                                                                                         sx={{color: 'rgb(3, 149, 216)', fontWeight: 600}}>
-                                                                                            {message.fullName}</Typography>
+                                                                                            {message.fullName}
+                                                                            </Typography>
                                 </NavLink>
                                 <div className={currentUser !== message.login ? style.dialogMessage : `${style.dialogMessage} ${style.isOwner}`}>
                                     <Typography variant="body1" sx={{color: 'rgb(233, 233, 233)'}}>{message.message}</Typography>

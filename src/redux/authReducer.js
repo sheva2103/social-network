@@ -39,7 +39,6 @@ const authReducer = (state = initialState, action) => {
         case REGISTRATION_SUCCESS:
             return {...state, registrationSuccess: action.registrationSuccess}
         case SIGN_IN:
-            //let index = action.email.indexOf('@')
             return {...state, isAuth: true, currentUser: getName(action.email), userID: action.id, userEmail: action.email, token: action.token}
         case IS_FETCHING_AUTH:
             return {...state, isFetching: action.isFetching}
@@ -94,7 +93,6 @@ export const signIn = (email, password, setModalOpen) => async(dispatch) => {
             dispatch(signInAC(user.email, user.uid, user.accessToken))
             if(setModalOpen) setModalOpen({isOpen: false, type: null})
             localStorage.setItem('authData', JSON.stringify({email, password}))
-            //dispatch(getUserData(getName(email)))
         } catch (error) {
             const errorCode = error.code;
             return { [FORM_ERROR]: errorCode }
@@ -106,7 +104,6 @@ export const signIn = (email, password, setModalOpen) => async(dispatch) => {
 export const logout = (logoutFunk) => (dispatch) => {
     dispatch({type: LOGOUT})
     logoutFunk(null)
-    //dispatch(setUserData(null, [], [], [], []))
 }
 /////////////////////////////////////////////
 export const changeUserInfo = (login, data, setModalOpen) => async(dispatch) => {

@@ -12,7 +12,7 @@ const ChangeUserData = ({userInfo, changeUserInfo, currentUser, setModalOpen}) =
     const onSubmit = (data) => {
         changeUserInfo(currentUser, data, setModalOpen)
     }
-
+    
     return ( 
         <Box sx={{width: '100%'}}>
             <Form onSubmit={onSubmit} 
@@ -30,7 +30,10 @@ const ChangeUserData = ({userInfo, changeUserInfo, currentUser, setModalOpen}) =
                                             color='neutral' 
                                             sx={{'& input': {color: 'orange'}}} 
                                             value={props.input.value} 
-                                            onChange={props.input.onChange}/>
+                                            onChange={(e) => {
+                                                if(userInfo.name.trim() !== '') return
+                                                props.input.onChange(e.target.value)
+                                            }}/>
             }       }</Field>
                     <Field name='city'>{props => (
                         <TextField  name={props.input.name} 

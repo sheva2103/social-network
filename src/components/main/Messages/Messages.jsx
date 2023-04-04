@@ -1,34 +1,24 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 
-import { doc, onSnapshot ,collection, query, where, getDocs } from "firebase/firestore";
+import { doc, onSnapshot  } from "firebase/firestore";
 import { db } from './../../../firebase';
 import { connect } from 'react-redux';
 import { setDialogsList } from './../../../redux/messageReducer';
 import Dialogs from './Dialogs';
-import { useParams } from 'react-router-dom';
-import { messageAPI } from '../../../api/api';
+import { Navigate, useParams } from 'react-router-dom';
 
-const Messages = ({setDialogsList, dialogs, currentUser, currentUserFullName}) => {
+const Messages = ({setDialogsList, dialogs, currentUser, currentUserFullName, isAuth}) => {
+
     let {user} = useParams()
     useEffect(() => {
-//         const q = query(collection(db, `${user}Messages`));
-//         const unsubscribe = onSnapshot(q, (querySnapshot) => {
-//         const messages = [];
-//             querySnapshot.forEach((doc) => {
-//             messages.push(doc.data());
-//     });
-//     console.log(messages)
-//     setDialogsList(messages)
-// });
         const unsub = onSnapshot(doc(db, 'users', user), (doc) => {
             //console.log("Current data: ", doc.data().dialogs);
             setDialogsList(doc.data().dialogs)
         });
 
     },[])
-    useEffect(() => {
 
-    }, [currentUser])
+    if(!isAuth) return <Navigate to={`/`}/>
     
     return ( 
         <div>

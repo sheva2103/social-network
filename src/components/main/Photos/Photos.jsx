@@ -1,12 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import { messageAPI } from '../../../api/api';
-import { Button, Grid, TextField } from '@mui/material';
+import React, { useEffect } from 'react'
 import { Box } from '@mui/system';
 import PhotosList from './PhotosList';
 import AddNewPhoto from './AddNewPhoto';
-
-import { query, orderBy, limit, doc, getDocs, getDoc } from "firebase/firestore";  
-import { db } from '../../../firebase';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getUserData } from './../../../redux/profileReducer';

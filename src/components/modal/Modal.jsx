@@ -7,6 +7,7 @@ import LoginFormContainer from './ModalLogin';
 import Preloader from '../common/Preloader';
 import ChangeUserData from './ChangeUserData';
 import ShowImage from './ShowImage';
+import CloseIcon from '@mui/icons-material/Close';
 
 export const MODAL_AUTH = 'MODAL_AUTH'
 export const CHANGE_PERSONAL_DATA = 'CHANGE_PERSONAL_DATA'
@@ -27,7 +28,7 @@ export default function BasicModal({modalOpen, setModalOpen, isFetching }) {
     bgcolor: '#383d47',
     borderRadius: '8px',
     boxShadow: 24,
-    p: 2,
+    p: 1,
     outline: 'none',
   };
 
@@ -41,6 +42,7 @@ export default function BasicModal({modalOpen, setModalOpen, isFetching }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+          <CloseIcon sx={{float: 'right', color: '#fff', cursor: 'pointer'}} onClick={() => setModalOpen({isOpen: false, type: null})}/>
           {modalOpen.type === MODAL_AUTH && <LoginFormContainer setModalOpen={setModalOpen} />}
           {modalOpen.type === CHANGE_PERSONAL_DATA && <ChangeUserData setModalOpen={setModalOpen} />}
           {modalOpen.type === SHOW_IMAGE && <ShowImage linkImages={modalOpen.linkImage}/>}

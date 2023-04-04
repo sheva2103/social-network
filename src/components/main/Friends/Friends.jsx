@@ -8,16 +8,18 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea, CardActions } from '@mui/material';
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink, Navigate, useParams } from 'react-router-dom';
 import { getUserData } from './../../../redux/profileReducer';
 
-const Friends = ({currentUserFriends, currentUser, deleteFriend, getUserData}) => {
+const Friends = ({currentUserFriends, currentUser, deleteFriend, getUserData, isAuth, friendShowProfile}) => {
     
     let {user} = useParams()
     useEffect(() => {
         getUserData(user)
     }, [user])
 
+    if(currentUser !== user) currentUserFriends = friendShowProfile
+    if(!isAuth) return <Navigate to={`/`}/>
     return ( 
         <Box sx={{padding: '8px'}}>
             <Grid container sx={{backgroundColor: '#383d47'}} spacing={2}>
@@ -59,7 +61,8 @@ const Friends = ({currentUserFriends, currentUser, deleteFriend, getUserData}) =
 const mapStateToProps = (state) => ({
     //resultSearchUser: state.search.searchUser,
     currentUser: state.auth.currentUser,
-    currentUserFriends: state.auth.currentUserData?.friends
+    currentUserFriends: state.auth.currentUserData?.friends,
+    friendShowProfile: state.profile.friends
 })
 
 export default connect(mapStateToProps, {deleteFriend, getUserData})(Friends)

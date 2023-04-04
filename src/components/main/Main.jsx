@@ -8,6 +8,7 @@ import Messages from './Messages/Messages';
 import Photos from './Photos/Photos';
 import SearchPage from './Search/SearchPage';
 import { connect } from 'react-redux';
+import StartPage from '../startPage/StartPage';
 
 const Main = ({menuActive, setMenuActive, setAutoLogin, currentUser, isAuth, setModalOpen}) => {
 
@@ -19,9 +20,10 @@ const Main = ({menuActive, setMenuActive, setAutoLogin, currentUser, isAuth, set
                 </div>}
             <div className={style.main_container}>
                 <Routes>
+                    <Route path='/' element={<StartPage setModalOpen={setModalOpen} isAuth={isAuth} currentUser={currentUser}/>}/>
                     <Route path={`/profile/:user`} element={<Profile />}/>
-                    <Route path='/friends/:user' element={<Friends />} />
-                    <Route path='/messages/:user/*' element={<Messages />} />
+                    <Route path='/friends/:user' element={<Friends isAuth={isAuth}/>} />
+                    <Route path='/messages/:user/*' element={<Messages isAuth={isAuth}/>} />
                     <Route path='/photos/:user' element={<Photos setModalOpen={setModalOpen}/>} />
                     <Route path='/search' element={<SearchPage />} />
                 </Routes>

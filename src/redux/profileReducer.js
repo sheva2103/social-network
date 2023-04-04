@@ -3,6 +3,7 @@ import { profileAPI } from "../api/api"
 
 const GET_USER_DATA = 'GET_USER_DATA'
 const ADD_NEW_POST = 'ADD_NEW_POST'
+const ADD_NEW_PHOTO = 'ADD_NEW_PHOTO'
 
 
 const CHANGE_USER_DATA = 'CHANGE_USER_DATA'
@@ -32,9 +33,8 @@ const profileReducer = (state = initialState, action) => {
             return {...state}
         case ADD_NEW_POST:
             return {...state, posts: [...state.posts, action.newPost]}
-        // case SET_USER_DATA: {
-        //     return {...state, ...action.payload}
-        // }
+        case ADD_NEW_PHOTO:
+            return {...state, photos: [...state.photos, action.photo]}
         default:
             return state
     }
@@ -61,5 +61,7 @@ export const addNewPost = (newPost, login) => async(dispatch) => {
         console.log(error)
     }
 }
+
+export const addNewPhotoToState = (photo) => ({type: ADD_NEW_PHOTO, photo})
 
 export default profileReducer

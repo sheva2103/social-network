@@ -11,7 +11,7 @@ const AddNewPost = ({userPhoto, addNewPost, currentUser, isAuth}) => {
     
     const onSubmit = (data) => {
         //let dateSubmit = new Date().toLocaleString()
-        console.log({post: data.newPost, date: new Date().toLocaleString()})
+        //console.log({post: data.newPost, date: new Date().toLocaleString()})
         return addNewPost({post: data.newPost, date: new Date().toLocaleString()}, currentUser)
     }
     if(!isAuth) return
