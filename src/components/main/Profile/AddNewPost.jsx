@@ -6,12 +6,17 @@ import i from '../../../../src/logo.svg'
 import { connect } from 'react-redux'
 import { Field, Form } from 'react-final-form'
 import { addNewPost } from './../../../redux/profileReducer';
+import { CHANGE_PERSONAL_DATA } from '../../modal/Modal'
 
-const AddNewPost = ({userPhoto, addNewPost, currentUser, isAuth}) => {
+const AddNewPost = ({userPhoto, addNewPost, currentUser, isAuth, setModalOpen, fullName}) => {
     
     const onSubmit = (data) => {
         //let dateSubmit = new Date().toLocaleString()
         //console.log({post: data.newPost, date: new Date().toLocaleString()})
+        if(fullName.length === 0) {
+            setModalOpen({isOpen: true, type: CHANGE_PERSONAL_DATA})
+            return
+        }
         return addNewPost({post: data.newPost, date: new Date().toLocaleString()}, currentUser)
     }
     if(!isAuth) return
@@ -56,7 +61,8 @@ const AddNewPost = ({userPhoto, addNewPost, currentUser, isAuth}) => {
 const mapStateToProps = (state) => ({
     userPhoto: state.profile.userInfo.linkUserPhoto,
     currentUser: state.auth.currentUser,
-    isAuth: state.auth.isAuth
+    isAuth: state.auth.isAuth,
+    fullName: state.auth.currentUserData?.userInfo.name
 })
 
 export default connect(mapStateToProps, {addNewPost})(AddNewPost)

@@ -53,7 +53,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 function Header({setMenuActive, isAuth, setModalOpen, currentUser, userPhoto, searchUser}) {
-//console.log(props)
   const [searchValue, setSearchValue] = useState('')
 
   return (
@@ -79,7 +78,7 @@ function Header({setMenuActive, isAuth, setModalOpen, currentUser, userPhoto, se
                           <Grid item xs={12} sm={true}>
                                   <Toolbar>
                                       <NavLink to={'/'}>
-                                        <Typography variant={window.innerWidth < 400 ? 'body2' : 'h6'} sx={{mr: '8px'}}>MiniSocNet</Typography>
+                                        <Typography variant={window.innerWidth < 400 ? 'h6' : 'h5'} sx={{mr: '8px'}}>MiniSocNet</Typography>
                                       </NavLink>
                                       <NavLink to={searchValue.length > 1 && '/search'}>
                                           <SearchIcon sx={{ml: '10px', cursor: 'pointer'}} onClick={() => {if(searchValue.length > 1) searchUser(searchValue)}}/>

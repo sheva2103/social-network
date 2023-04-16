@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import { Box, Button, Grid, TextField } from '@mui/material';
 import { messageAPI } from '../../../api/api';
 import SendIcon from '@mui/icons-material/Send';
+import { CHANGE_PERSONAL_DATA } from '../../modal/Modal';
 
-const SendMessage = ({fullName, addressee, sender, fullNameOwnerProfile, fromProfile}) => {
+const SendMessage = ({fullName, addressee, sender, fullNameOwnerProfile, fromProfile, setModalOpen}) => {
     const [message, setMessage] = useState('')
     return (  
         <Box sx={{padding: '8px'}}>
@@ -21,6 +22,10 @@ const SendMessage = ({fullName, addressee, sender, fullNameOwnerProfile, fromPro
                                     color='button' sx={{padding: '8px', width: '100%'}} 
                                     onClick={() => {
                                         if(message.trim() <= 0) return
+                                        if(fullName.length === 0) {
+                                            setModalOpen({isOpen: true, type: CHANGE_PERSONAL_DATA})
+                                            return
+                                        }
                                         messageAPI.sendMessage({fullName, message, time: new Date().toLocaleString()}, addressee, sender, fullNameOwnerProfile, fromProfile)
                                         setMessage('')
                                     }}

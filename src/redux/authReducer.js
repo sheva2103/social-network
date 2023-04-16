@@ -12,6 +12,7 @@ const CHANGE_USER_INFO = 'CHANGE_USER_INFO'
 const ADD_NEW_POST = 'ADD_NEW_POST'
 const ADD_FRIEND = 'ADD_FRIEND'
 const DELETE_FRIEND = 'DELETE_FRIEND'
+const CHANGE_PERSONAL_DATA = 'CHANGE_PERSONAL_DATA'
 
 
 const initialState = {
@@ -89,10 +90,13 @@ export const signIn = (email, password, setModalOpen) => async(dispatch) => {
             //////////////////
             let userData = await profileAPI.getUserData(getName(email))
             dispatch({type: USER_DATA, userData})
-            //////////////////////
             dispatch(signInAC(user.email, user.uid, user.accessToken))
             if(setModalOpen) setModalOpen({isOpen: false, type: null})
             localStorage.setItem('authData', JSON.stringify({email, password}))
+            //////////////////////
+            //console.log(userData.userInfo.name.length)
+            if(userData.userInfo.name.length === 0) setModalOpen({isOpen: true, type: CHANGE_PERSONAL_DATA})
+            /////////////////
         } catch (error) {
             const errorCode = error.code;
             return { [FORM_ERROR]: errorCode }

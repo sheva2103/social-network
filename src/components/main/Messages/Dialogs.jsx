@@ -31,7 +31,7 @@ const Dialogs = ({dialogs, currentUser, currentUserFullName}) => {
                                                 className={selectedLink}
                                                 onClick={() => {
                                                     if(window.innerWidth < 900) setDialogOpen(true)
-                                                }}>{user.fullNameAddressee}</NavLink>
+                                                }}>{user.fullNameAddressee.trim().length !== 0 ? user.fullNameAddressee : user.login}</NavLink>
                                 </Typography>
                             </li>
                         ))}

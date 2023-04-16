@@ -25,6 +25,7 @@ const ChangeUserData = ({userInfo, changeUserInfo, currentUser, setModalOpen}) =
                                             fullWidth 
                                             margin='normal' 
                                             id="filled-basic" 
+                                            required
                                             label="Имя" 
                                             variant="filled" 
                                             color='neutral' 
@@ -52,8 +53,9 @@ const ChangeUserData = ({userInfo, changeUserInfo, currentUser, setModalOpen}) =
                         <TextField  name={props.input.name} 
                                     fullWidth 
                                     margin='normal' 
+                                    type='date'
                                     id="filled-basic" 
-                                    label="Дата рождения" 
+                                    //label="Дата рождения" 
                                     variant="filled" 
                                     color='neutral' 
                                     sx={{'& input': {color: 'orange'}}}

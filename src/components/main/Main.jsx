@@ -21,7 +21,7 @@ const Main = ({menuActive, setMenuActive, setAutoLogin, currentUser, isAuth, set
             <div className={style.main_container}>
                 <Routes>
                     <Route path='/' element={<StartPage setModalOpen={setModalOpen} isAuth={isAuth} currentUser={currentUser}/>}/>
-                    <Route path={`/profile/:user`} element={<Profile />}/>
+                    <Route path={`/profile/:user`} element={<Profile setModalOpen={setModalOpen}/>}/>
                     <Route path='/friends/:user' element={<Friends isAuth={isAuth}/>} />
                     <Route path='/messages/:user/*' element={<Messages isAuth={isAuth}/>} />
                     <Route path='/photos/:user' element={<Photos setModalOpen={setModalOpen}/>} />

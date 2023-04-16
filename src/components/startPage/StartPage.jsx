@@ -11,7 +11,7 @@ const StartPage = ({setModalOpen, isAuth, currentUser}) => {
         <Grid container justifyContent={'center'} alignItems={'center'}>
             <Grid item xs={12} md={6} sx={{textAlign: 'center', padding: '8px', color: 'rgb(230, 230, 230)'}}>
             <Typography variant={window.innerWidth < 900 ? 'h5' : 'h4'} sx={{padding: '16px 8px', borderBottom: 'dotted 1px rgb(230, 230, 230)'}}>
-                    Добро пожаловать в маленькую презетнационную социальную сеть
+                    Добро пожаловать в маленькую презентационную социальную сеть
                 </Typography>
                 <Typography variant='h6' gutterBottom sx={{padding: '16px 8px'}}>
                     Здесь вы можете вести свой личный блог, находить друзей и общаться с ними в режиме реального времени.<br />
@@ -22,7 +22,7 @@ const StartPage = ({setModalOpen, isAuth, currentUser}) => {
             </Grid>
             <Grid item xs={12} md={6}>
                 <div className={style.signInBox}>
-                    <img src="https://xaxa-net.ru/uploads/posts/2019-05/1556915171_krasivye-mesta_xaxa-net.ru-24.jpg" alt="111" className={style.backImage}/>
+                    <img src="https://xaxa-net.ru/uploads/posts/2019-05/1556915171_krasivye-mesta_xaxa-net.ru-24.jpg" alt="welcom" className={style.backImage}/>
                     <div className={style.signInBoxButton}>
                     <Button variant="contained" onClick={()=> setModalOpen({isOpen: true, type: MODAL_AUTH})}>Вход</Button>
                     </div>

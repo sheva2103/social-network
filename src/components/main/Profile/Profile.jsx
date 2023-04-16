@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { getUserData } from './../../../redux/profileReducer';
 import SendMessage from './SendMessage';
 
-const Profile = ({getUserData, currentUser, fullName, fullNameOwnerProfile}) => {
+const Profile = ({getUserData, currentUser, fullName, fullNameOwnerProfile, setModalOpen}) => {
     let {user} = useParams()
     useEffect(() => {
         getUserData(user)
@@ -19,11 +19,12 @@ const Profile = ({getUserData, currentUser, fullName, fullNameOwnerProfile}) => 
         <Grid container justifyContent={'center'} sx={{backgroundColor: '#383d47', padding: '4px'}}>
             <Grid item width={'100%'}>
                     <CurrentUser user={user}/>
-                    {currentUser && (user === currentUser ? <AddNewPost /> : <SendMessage fullName={fullName} 
-                                                                                            addressee={user} 
-                                                                                            sender={currentUser}
-                                                                                            fullNameOwnerProfile={fullNameOwnerProfile}
-                                                                                            fromProfile/>)}
+                    {currentUser && (user === currentUser ? <AddNewPost setModalOpen={setModalOpen}/> : <SendMessage fullName={fullName} 
+                                                                                                                        addressee={user} 
+                                                                                                                        sender={currentUser}
+                                                                                                                        fullNameOwnerProfile={fullNameOwnerProfile}
+                                                                                                                        fromProfile
+                                                                                                                        setModalOpen={setModalOpen}/>)}
                     <PostsContainer />
             </Grid>
         </Grid>
